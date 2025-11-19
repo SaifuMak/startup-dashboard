@@ -30,22 +30,28 @@ export default function Slider() {
     const sub = subtitleRef.current[currentIndex];
     const btn = buttonRef.current[currentIndex];
 
-    const split = new SplitText(title, { type: "chars" });
+    const split = new SplitText(title, {
+      type: "words, chars",
+    });
 
-    const tl = gsap.timeline({ delay: 0.5 });
+    const tl = gsap.timeline({
+      delay: 0.9,
+    });
 
-    tl.to(containerRef.current, { opacity: 1 });
+    tl.to(containerRef.current,
+      { opacity: 1 });
 
     tl.from(split.chars, {
       y: 40,
       opacity: 0,
       duration: 0.4,
       stagger: 0.06,
-      ease: "power2.out"
+      ease: "power2.out",
     });
 
-    tl.from(sub, { y: 30, opacity: 0, duration: 0.8 }, "-=0.2");
-    tl.from(btn, { y: 20, opacity: 0, duration: 0.4 }, "-=0.2");
+    tl.from(sub, { y: 30, opacity: 0, duration: 0.8 });
+    // tl.from(btn, { y: 20, opacity: 0, duration: 0.4 });
+    return () => split.revert();
   }, [currentIndex]);
 
   return (
@@ -73,27 +79,27 @@ export default function Slider() {
 
             {/* Overlay */}
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <div className="text-center max-w-5xl px-4 text-white">
+              <div className="text-center  lg:max-w-xl xl:max-w-3xl px-4 text-white">
                 <h1
                   ref={(el) => (titleRef.current[index] = el)}
-                  className="text-3xl md:text-5xl font-bold mb-5"
+                  className="text-3xl md:text-4xl xl:text-5xl font-bold mb-5"
                 >
                   {slide.title}
                 </h1>
 
                 <p
                   ref={(el) => (subtitleRef.current[index] = el)}
-                  className="text-base md:text-lg mb-5"
+                  className="text-base xl:text-lg mb-3 xl:mb-5"
                 >
                   {slide.subtitle}
                 </p>
 
-                <button
+                {/* <button
                   ref={(el) => (buttonRef.current[index] = el)}
                   className="px-6 py-3 bg-white text-black rounded-lg font-semibold hover:bg-gray-200 transition"
                 >
                   {slide.cta.title}
-                </button>
+                </button> */}
               </div>
             </div>
 
