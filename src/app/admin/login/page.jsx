@@ -1,15 +1,14 @@
 'use client'
 import Image from "next/image";
-import Slider from "../components/login-slider/Slider";
 import { AiOutlineCheck } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
-import AXIOS_INSTANCE from "../lib/axios";
-import LoaderIcon from "../components/general-components/LoaderIcon";
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
-
+import LoaderIcon from "@/app/components/general-components/LoaderIcon";
+import Slider from "@/app/components/login-slider/Slider";
+import AXIOS_INSTANCE from "@/app/lib/axios";
 
 
 export default function LoginPage() {
@@ -19,8 +18,6 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter();
-
-
 
     const handleLogin = async (e) => {
         e.preventDefault();
