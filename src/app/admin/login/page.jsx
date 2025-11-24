@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import LoaderIcon from "@/app/components/general-components/LoaderIcon";
 import Slider from "@/app/components/login-slider/Slider";
 import AXIOS_INSTANCE from "@/app/lib/axios";
+import { Login } from "@/app/actions/auth";
 
 
 export default function LoginPage() {
@@ -22,27 +23,22 @@ export default function LoginPage() {
     const handleLogin = async (e) => {
         e.preventDefault();
         toast.dismiss()
-
         setIsLoading(true)
 
-        try {
-            const payload = {
-                email: email,
-                password: password,
-            };
+        const payload = {
+            email: email,
+            password: password,
+        };
 
-            const res = await AXIOS_INSTANCE.post("auth-service/login/", payload, {
-            });
-            router.push('/admin/dashboard')
+        const res = await Login(payload)
+        if (res.success) {
+            router.replace('/admin/dashboard')
             toast.success("Login Success")
-
-        } catch (error) {
+        }
+        else {
             toast.error("Incorrect Email or Password")
-            // console.error("Incorrect Email or Password", error.response?.data || error);
         }
-        finally {
-            setIsLoading(false)
-        }
+        setIsLoading(false)
     };
 
     return (

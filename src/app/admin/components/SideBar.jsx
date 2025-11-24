@@ -12,7 +12,7 @@ import { MdDisplaySettings } from "react-icons/md";
 import { FaAngleDown } from "react-icons/fa6";
 import { VscCircle } from "react-icons/vsc";
 import { IoIosSearch } from "react-icons/io";
-
+import Image from "next/image";
 export default function SideBar() {
     const [openMenu, setOpenMenu] = useState(null);
 
@@ -24,94 +24,114 @@ export default function SideBar() {
         setOpenMenu(openMenu === menu ? null : menu);
     };
 
-    return (
-        <div className="w-64 bg-white border-r  font-medium  text-[#17181A] h-screen p-4">
-            {/* Logo */}
-            <div className="text-xl font-bold mb-6">Startup Site</div>
 
-            {/* Search */}
-            <div className=" flex  space-x-2 px-3 py-2  rounded mb-10 items-center border border-custom-grey-300">
-                <span className=" text-xl text-custom-grey-500"><IoIosSearch /></span>
-                <input
-                    type="text"
-                    placeholder="Search something"
-                    className="w-full placeholder:text-sm placeholder:text-custom-grey-400 "
-                />
+    return (
+        <div className="w-84 bg-white  font-medium  text-[#17181A] h-screen ">
+            <div className=" min-h-[80px] px-3 flex-center border-b border-[#F1F5F7]">
+
+                {/* Logo */}
+                <div className="relative  bg-white w-[200px]  aspect-[3/1] mx-auto ">
+                    <Image
+                        src="/image/logo.jpg"
+                        alt="logo"
+                        fill
+                        className="object-contain"
+                    />
+                </div>
+                <img src="/icons/profile.svg" alt="profile" className=" size-9 ml-3 " />
             </div>
 
-            {/* MENU ITEMS */}
-            <SidebarItem
-                label="Dashboard"
-                icon={<BiHomeCircle className="text-lg" />}
-                href="/admin/dashboard"
-                active={isActive("/admin/dashboard")}
-            />
+            <div className=" px-2">
 
-            {/* Websites */}
-            <SidebarDropdown
-                label="Websites"
-                icon={<CgWebsite className="text-lg" />}
-                open={openMenu === "websites"}
-                onClick={() => toggleMenu("websites")}
-                active={pathname.startsWith("/admin/websites")}
-            >
-                <SidebarSubItem
-                    label="View All"
-                    href="/admin/websites"
-                    active={isActive("/admin/websites")}
+
+                {/* Search */}
+                <div className=" flex  space-x-2 px-2 py-1.5  rounded-md  mt-4 mb-10 justify-between items-center border border-[#D9E1E7]">
+                    <>
+                        <span className=" text-xl text-[#809FB8]"><IoIosSearch /></span>
+                        <input
+                            type="text"
+                            placeholder="search something"
+                            className="w-full placeholder:text-sm  font-normal outline-none placeholder:text-light-secondary "
+                        />
+                    </>
+                    <img src="/icons/admin-sidebar/search-icon.svg" alt="profile" className=" size-7  " />
+
+                </div>
+
+                {/* MENU ITEMS */}
+                <SidebarItem
+                    label="Dashboard"
+                    icon={<BiHomeCircle className="text-2xl" />}
+                    href="/admin/dashboard"
+                    active={isActive("/admin/dashboard")}
                 />
-                <SidebarSubItem
-                    label="Add New"
-                    href="/admin/websites/add"
-                    active={isActive("/admin/websites/add")}
+
+                {/* Websites */}
+                <SidebarDropdown
+                    label="Websites"
+                    icon={<CgWebsite className="text-2xl" />}
+                    open={openMenu === "websites"}
+                    onClick={() => toggleMenu("websites")}
+                    active={pathname.startsWith("/admin/websites")}
+                >
+                    <SidebarSubItem
+                        label="View All"
+                        href="/admin/websites"
+                        active={isActive("/admin/websites")}
+                    />
+                    <SidebarSubItem
+                        label="Add New"
+                        href="/admin/websites/add"
+                        active={isActive("/admin/websites/add")}
+                    />
+                </SidebarDropdown>
+
+                {/* Analytics */}
+                <SidebarDropdown
+                    label="Analytics"
+                    icon={<RiPagesLine className="text-2xl" />}
+                    open={openMenu === "analytics"}
+                    onClick={() => toggleMenu("analytics")}
+                    active={pathname.startsWith("/admin/analytics")}
+                >
+                    <SidebarSubItem
+                        label="Traffic"
+                        href="/admin/analytics/traffic"
+                        active={isActive("/admin/analytics/traffic")}
+                    />
+                </SidebarDropdown>
+
+                {/* Billing */}
+                <SidebarDropdown
+                    label="Billing"
+                    icon={<AiOutlineShop className="text-2xl" />}
+                    open={openMenu === "billing"}
+                    onClick={() => toggleMenu("billing")}
+                    active={pathname.startsWith("/admin/billing")}
+                >
+                    <SidebarSubItem
+                        label="Plans"
+                        href="/admin/billing/plans"
+                        active={isActive("/admin/billing/plans")}
+                    />
+                </SidebarDropdown>
+
+                {/* Help */}
+                <SidebarItem
+                    label="Help"
+                    icon={<AiOutlineDownSquare className="text-2xl" />}
+                    href="/admin/help"
+                    active={isActive("/admin/help")}
                 />
-            </SidebarDropdown>
 
-            {/* Analytics */}
-            <SidebarDropdown
-                label="Analytics"
-                icon={<RiPagesLine className="text-lg" />}
-                open={openMenu === "analytics"}
-                onClick={() => toggleMenu("analytics")}
-                active={pathname.startsWith("/admin/analytics")}
-            >
-                <SidebarSubItem
-                    label="Traffic"
-                    href="/admin/analytics/traffic"
-                    active={isActive("/admin/analytics/traffic")}
+                {/* Settings */}
+                <SidebarItem
+                    label="Settings"
+                    icon={<MdDisplaySettings className="text-2xl" />}
+                    href="/admin/settings"
+                    active={isActive("/admin/settings")}
                 />
-            </SidebarDropdown>
-
-            {/* Billing */}
-            <SidebarDropdown
-                label="Billing"
-                icon={<AiOutlineShop className="text-xl" />}
-                open={openMenu === "billing"}
-                onClick={() => toggleMenu("billing")}
-                active={pathname.startsWith("/admin/billing")}
-            >
-                <SidebarSubItem
-                    label="Plans"
-                    href="/admin/billing/plans"
-                    active={isActive("/admin/billing/plans")}
-                />
-            </SidebarDropdown>
-
-            {/* Help */}
-            <SidebarItem
-                label="Help"
-                icon={<AiOutlineDownSquare className="text-xl" />}
-                href="/admin/help"
-                active={isActive("/admin/help")}
-            />
-
-            {/* Settings */}
-            <SidebarItem
-                label="Settings"
-                icon={<MdDisplaySettings className="text-xl" />}
-                href="/admin/settings"
-                active={isActive("/admin/settings")}
-            />
+            </div>
         </div>
     );
 
@@ -123,7 +143,7 @@ function SidebarItem({ label, icon, href, active }) {
     return (
         <Link href={href}>
             <div
-                className={`flex items-center gap-3 px-4 py-2 rounded-md cursor-pointer mb-2
+                className={`flex items-center font-normal gap-3 px-4 py-2 rounded-md cursor-pointer mb-2
           ${active ? " bg-admin-violet text-white" : ""}
         `}
             >
@@ -137,7 +157,7 @@ function SidebarItem({ label, icon, href, active }) {
 /** DROPDOWN ITEM **/
 function SidebarDropdown({ label, icon, children, open, onClick, active }) {
     return (
-        <div className="mb-2">
+        <div className="mb-2 font-normal ">
             <div
                 onClick={onClick}
                 className={`flex items-center justify-between px-4 py-2 rounded-lg cursor-pointer
