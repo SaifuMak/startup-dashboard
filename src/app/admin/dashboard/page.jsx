@@ -8,14 +8,15 @@ import NavBar from "../components/NavBar";
 export default function Dashboard() {
 
     return (
-        <div className=" flex bg-[#F9FBFC] ">
+        <div className=" flex  bg-admin-light-background ">
             <SideBar />
 
             <div className=" w-full h-screen flex flex-col ">
                 <NavBar/>
-                <div className="  w-full h-full"></div>
+                <div className="  w-full h-full flex-center">
 
                 <p className=" text-3xl"> Dashboard</p>
+                </div>
             </div>
         </div>
     )
