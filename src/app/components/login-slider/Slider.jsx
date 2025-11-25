@@ -17,7 +17,7 @@ import { LoginSliderData } from "@/app/data/LoginSliderData";
 // Register
 gsap.registerPlugin(SplitText, useGSAP);
 
-export default function Slider() {
+export default function Slider({ onReady }) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const titleRef = useRef([]);
@@ -36,6 +36,9 @@ export default function Slider() {
 
     const tl = gsap.timeline({
       delay: 0.9,
+      onStart: () => {
+        onReady()
+      },
     });
 
     tl.to(containerRef.current,
@@ -54,6 +57,7 @@ export default function Slider() {
     return () => split.revert();
   }, [currentIndex]);
 
+
   return (
     <Swiper
       effect={"fade"}
@@ -64,6 +68,7 @@ export default function Slider() {
       modules={[EffectFade, Autoplay]}
       onSlideChange={(s) => setCurrentIndex(s.realIndex)}
       ref={containerRef}
+
       className="opacity-0"
     >
       {LoginSliderData.map((slide, index) => (

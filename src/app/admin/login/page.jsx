@@ -10,6 +10,8 @@ import LoaderIcon from "@/app/components/general-components/LoaderIcon";
 import Slider from "@/app/components/login-slider/Slider";
 import AXIOS_INSTANCE from "@/app/lib/axios";
 import { Login } from "@/app/actions/auth";
+import OverlayLoader from "@/app/components/general-components/OverlayLoader";
+import Link from "next/link";
 
 
 export default function LoginPage() {
@@ -18,6 +20,8 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false)
+    const [sliderReady, setSliderReady] = useState(false);
+
     const router = useRouter();
 
     const handleLogin = async (e) => {
@@ -117,7 +121,7 @@ export default function LoginPage() {
                         </label> */}
 
                         <div className=" w-full flex justify-end">
-                            <p className=" font-medium text-custom-grey-500 hover:underline hover:cursor-pointer">Forgot password</p>
+                            <Link href='/admin/forgot-password' className=" font-medium text-custom-grey-500 hover:underline hover:cursor-pointer">Forgot password</Link>
                         </div>
 
                         {/* Login Button */}
@@ -139,9 +143,12 @@ export default function LoginPage() {
                 </div>
             </div>
 
+
             <div className=" w-full max-lg:hidden xl:w-[62%] lg:w-[55%] ">
-                <Slider />
+                <Slider onReady={() => setSliderReady(true)} />
             </div>
+            {!sliderReady && <OverlayLoader />}
+
         </div>
     );
 }

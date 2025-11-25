@@ -9,8 +9,8 @@ import AXIOS_INSTANCE from "../lib/axios";
 import LoaderIcon from "../components/general-components/LoaderIcon";
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
-
-
+import Link from "next/link";
+import OverlayLoader from "../components/general-components/OverlayLoader";
 
 export default function LoginPage() {
 
@@ -19,7 +19,7 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter();
-
+    const [sliderReady, setSliderReady] = useState(false);
 
 
     const handleLogin = async (e) => {
@@ -48,15 +48,16 @@ export default function LoginPage() {
         }
     };
 
-    return (
+
+     return (
 
         <div className=" flex max-lg:flex-col min-h-[100vh]  ">
 
-            <div className=" w-full   xl:w-[36%]  lg:w-[45%] mx-auto flex-center bg-white ">
-                <div className=" w-full  lg:w-9/12 xl:w-8/12 lg:h-10/12 ">
+            <div className=" w-full   xl:w-[36%]  lg:w-[45%] mx-auto  flex-center max-lg:mt-10 bg-white ">
+                <div className=" w-11/12  lg:w-9/12 xl:w-8/12 lg:h-10/12 ">
 
                     {/* Logo */}
-                    <div className="relative bg-white w-[220px] aspect-[3/1] mx-auto  mb-28 ">
+                    <div className="relative bg-white w-[220px] aspect-[3/1] mx-auto mb-10  lg:mb-28 ">
                         <Image
                             src="/image/logo.jpg"
                             alt="logo"
@@ -66,13 +67,13 @@ export default function LoginPage() {
                     </div>
 
                     {/* Title */}
-                    <h2 className="text-[32px] font-semibold text-center">Login to your account</h2>
-                    <p className="text-center  text-custom-grey-500 text-lg font-medium mt-1">
+                    <h2 className="lg:text-[32px] text-2xl font-semibold text-center">Login to your account</h2>
+                    <p className="text-center  text-custom-grey-500 lg:text-lg font-medium mt-1">
                         Welcome back, please enter your details
                     </p>
 
                     {/* Form */}
-                    <form onSubmit={handleLogin} className="mt-10 space-y-4">
+                    <form onSubmit={handleLogin} className="lg:mt-10 mt-8 space-y-4">
 
                         {/* Username */}
                         <div className=" flex items-center border rounded-sm border-custom-grey-300 space-x-2  px-4 py-3">
@@ -83,13 +84,13 @@ export default function LoginPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                className="w-full placeholder:text-custom-grey-400 placeholder:text-lg font-medium outline-none "
+                                className="w-full placeholder:text-custom-grey-400  text-custom-grey-500 lg:placeholder:text-lg font-medium outline-none "
                             />
                         </div>
 
 
                         {/* Password */}
-                        <div className="relative  flex items-center border rounded-sm border-custom-grey-300 placeholder:text-lg space-x-2  px-4 py-3">
+                        <div className="relative  flex items-center border rounded-sm border-custom-grey-300 lg:placeholder:text-lg space-x-2  px-4 py-3">
                             <img src="/icons/password.svg" alt="" className=" size-6 " />
                             <input
                                 type={showPassword ? "text" : "password"}
@@ -97,7 +98,7 @@ export default function LoginPage() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full placeholder:text-custom-grey-400 font-medium outline-none"
+                                className="w-full placeholder:text-custom-grey-400 text-custom-grey-500 font-medium outline-none"
                             />
                             <button
                                 type="button"
@@ -124,7 +125,7 @@ export default function LoginPage() {
                         </label> */}
 
                         <div className=" w-full flex justify-end">
-                            <p className=" font-medium text-custom-grey-500 hover:underline hover:cursor-pointer">Forgot password</p>
+                            <Link href='/forgot-password' className=" font-medium text-custom-grey-500 hover:underline hover:cursor-pointer">Forgot password</Link>
                         </div>
 
                         {/* Login Button */}
@@ -132,12 +133,12 @@ export default function LoginPage() {
                             type="submit"
                             className="w-full mt-7 bg-custom-primary-500 flex-center text-lg text-white h-[54px] rounded-sm "
                         >
-                            {isLoading ? <LoaderIcon className='text-xl font-medium animate-spin' /> : 'Login'}
+                            {isLoading ? <LoaderIcon className='text-xl font-medium animate-spin text-white' /> : 'Login'}
                         </button>
                     </form>
 
                     {/* Sign Up */}
-                    <p className="text-center  text-custom-grey-500 text-base font-medium mt-6">
+                    <p className="text-center  text-custom-grey-500 text-base font-medium mt-5 lg:mt-6">
                         Don’t have an account?
                         <a href="#" className=" text-custom-primary-500 font-medium hover:underline ml-1">
                             Sign up
@@ -146,9 +147,12 @@ export default function LoginPage() {
                 </div>
             </div>
 
-            <div className=" w-full xl:w-[62%] lg:w-[55%] ">
-                <Slider />
+
+            <div className=" w-full max-lg:hidden xl:w-[62%] lg:w-[55%] ">
+                <Slider onReady={() => setSliderReady(true)} />
             </div>
+            {!sliderReady && <OverlayLoader />}
+
         </div>
     );
 }

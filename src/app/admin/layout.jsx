@@ -35,7 +35,8 @@ export default function DashboardLayout({ children }) {
     }
 
     // If NOT logged in
-    if (pathname !== "/admin/login") {
+    if (pathname !== "/admin/login" && pathname !== "/admin/forgot-password") {
+      toast.dismiss()
       toast.error("Your session has expired. Please log in again.");
       router.replace("/admin/login");
       return;
