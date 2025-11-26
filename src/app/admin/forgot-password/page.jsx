@@ -1,54 +1,34 @@
 'use client'
 import Image from "next/image";
 import Slider from "../../components/login-slider/Slider";
-import { AiOutlineCheck } from "react-icons/ai";
-import { FiEye, FiEyeOff } from "react-icons/fi";
-import { RiLockPasswordLine } from "react-icons/ri";
 import { useState } from "react";
-import AXIOS_INSTANCE from "../../lib/axios";
 import LoaderIcon from "../../components/general-components/LoaderIcon";
 import { toast } from 'sonner';
-import { useRouter } from "next/navigation";
 import { BsArrowLeft } from "react-icons/bs";
 import Link from "next/link";
 import OverlayLoader from "../../components/general-components/OverlayLoader";
+import { forgetPassword } from "@/app/actions/auth";
 
 export default function ForgotPasswordPage() {
 
-    const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false)
     const [sliderReady, setSliderReady] = useState(false);
 
-    const router = useRouter();
-
-
-
-    const handleLogin = async (e) => {
+    const handlePasswordChnage = async (e) => {
         e.preventDefault();
         toast.dismiss()
 
         setIsLoading(true)
 
-        try {
-            const payload = {
-                email: email,
-                password: password,
-            };
-
-            const res = await AXIOS_INSTANCE.post("auth-service/login/", payload, {
-            });
-            router.push('/admin/dashboard')
-            toast.success("Login Success")
-
-        } catch (error) {
-            toast.error("Incorrect Email or Password")
-            // console.error("Incorrect Email or Password", error.response?.data || error);
+        const { success, data, error } = await forgetPassword(email);
+        if (success) {
+            toast.success(data.message);
+        } else {
+            // toast.error(error);
         }
-        finally {
-            setIsLoading(false)
-        }
+        setIsLoading(false)
+
     };
 
     return (
@@ -75,7 +55,7 @@ export default function ForgotPasswordPage() {
                     </p>
 
                     {/* Form */}
-                    <form onSubmit={handleLogin} className="lg:mt-10 mt-8 space-y-4">
+                    <form onSubmit={handlePasswordChnage} className="lg:mt-10 mt-8 space-y-4">
 
                         {/* Username */}
                         <div className=" flex items-center border rounded-sm border-custom-grey-300 space-x-2  px-4 py-3">

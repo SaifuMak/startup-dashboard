@@ -31,6 +31,8 @@ export const Login = async (payload) => {
 
 }
 
+
+
  export const LoginStatus = async () => {
     try {
       await AXIOS_INSTANCE.get("auth-service/check-auth/");
@@ -40,3 +42,21 @@ export const Login = async (payload) => {
       return { success: false, data: null };
     } 
   };
+
+
+  
+export const forgetPassword = async (email) => {
+  try {
+
+    const res = await AXIOS_INSTANCE.post("auth-service/forgot-password/",{email}, {
+    });
+    return { success: true, data: res.data };
+
+  } catch (error) {
+    return {
+      success: false,
+      error: error.response?.data || "Something went wrong",
+    };
+  }
+
+}
