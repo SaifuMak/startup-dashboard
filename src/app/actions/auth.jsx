@@ -44,7 +44,6 @@ export const Login = async (payload) => {
   };
 
 
-  
 export const forgetPassword = async (email) => {
   try {
 
@@ -55,7 +54,24 @@ export const forgetPassword = async (email) => {
   } catch (error) {
     return {
       success: false,
-      error: error.response?.data || "Something went wrong",
+      error: error.response?.data.error || "Something went wrong",
+    };
+  }
+
+}
+
+
+export const confirmChangePassword = async (payload) => {
+  try {
+
+    const res = await AXIOS_INSTANCE.post("auth-service/password-change/", payload, {
+    });
+    return { success: true, data: res.data };
+
+  } catch (error) {
+    return {
+      success: false,
+      error: error.response?.data.error || "Something went wrong",
     };
   }
 

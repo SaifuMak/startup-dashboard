@@ -3,7 +3,7 @@ import Image from "next/image";
 import { AiOutlineCheck } from "react-icons/ai";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from 'sonner';
 import { useRouter } from "next/navigation";
 import LoaderIcon from "@/app/components/general-components/LoaderIcon";
@@ -12,40 +12,66 @@ import AXIOS_INSTANCE from "@/app/lib/axios";
 import { Login } from "@/app/actions/auth";
 import OverlayLoader from "@/app/components/general-components/OverlayLoader";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { confirmChangePassword } from "@/app/actions/auth";
 
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [email, setEmail] = useState("");
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     const [isLoading, setIsLoading] = useState(false)
     const [sliderReady, setSliderReady] = useState(false);
 
+    const [isPasswordNotMatching, setIsPasswordNotMatching] = useState(false)
+
+    const searchParams = useSearchParams();
+    const token = searchParams.get("token");
+
     const router = useRouter();
 
-   
+    const passwordMatchChecking = () => {
 
-    const handleLogin = async (e) => {
+        if (confirmPassword && confirmPassword !== password) {
+            setIsPasswordNotMatching(true)
+            return false
+        }
+        setIsPasswordNotMatching(false)
+        return true
+    }
+
+    const handleConfirm = async (e) => {
         e.preventDefault();
         toast.dismiss()
+
+        if (isPasswordNotMatching) return
         setIsLoading(true)
 
         const payload = {
-            email: email,
+            token: token,
             password: password,
         };
 
-        const res = await Login(payload)
+        const res = await confirmChangePassword(payload)
         if (res.success) {
-            router.replace('/admin/dashboard')
-            toast.success("Login Success")
+            toast.success(res.data.message)
+
+            router.push('/admin/login')
         }
         else {
-            toast.error("Incorrect Email or Password")
+            toast.error(res.error)
         }
         setIsLoading(false)
     };
+
+    useEffect(() => {
+        passwordMatchChecking();
+    }, [password, confirmPassword]);
+
 
     return (
 
@@ -64,29 +90,14 @@ export default function LoginPage() {
                         />
                     </div>
 
-
                     {/* Title */}
-                    <h2 className="lg:text-[32px] text-2xl font-semibold text-center">Login to your account</h2>
+                    <h2 className="lg:text-[32px] text-2xl font-semibold text-center">Reset your password</h2>
                     <p className="text-center  text-custom-grey-500 lg:text-lg font-medium mt-1">
-                        Welcome back, please enter your details
+                        Enter and confirm your new password.
                     </p>
 
                     {/* Form */}
-                    <form onSubmit={handleLogin} className="lg:mt-10 mt-8 space-y-4">
-
-                        {/* Username */}
-                        <div className=" flex items-center border rounded-sm border-custom-grey-300 space-x-2  px-4 py-3">
-                            <img src="/icons/user-name.svg" alt="" className=" size-6 " />
-                            <input
-                                type="email"
-                                placeholder="Email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value.trim())}
-                                required
-                                className="w-full placeholder:text-custom-grey-400  text-custom-grey-500 lg:placeholder:text-lg font-medium outline-none "
-                            />
-                        </div>
-
+                    <form onSubmit={handleConfirm} className="lg:mt-10 mt-8 space-y-4">
 
                         {/* Password */}
                         <div className="relative  flex items-center border rounded-sm border-custom-grey-300 lg:placeholder:text-lg space-x-2  px-4 py-3">
@@ -109,39 +120,54 @@ export default function LoginPage() {
 
                                 ) : (
                                     <FiEyeOff className="w-5 h-5" />
+
                                 )}
                             </button>
                         </div>
-                        {/* 
-                        <label className="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" className="peer hidden" />
 
-                            <div className="w-5 h-5 rounded border border-custom-grey-300 flex items-center justify-center 
-                                  ">
-                                <AiOutlineCheck className=" text-sm text-custom-primary-500" />
-                            </div>
 
-                            <span className="">Remember for 30 days</span>
-                        </label> */}
+                        <div className="relative  flex items-center border rounded-sm border-custom-grey-300 lg:placeholder:text-lg space-x-2  px-4 py-3">
+                            <img src="/icons/password.svg" alt="" className=" size-6 " />
+                            <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                placeholder="Confirm password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value.trim())}
+                                required
+                                className="w-full placeholder:text-custom-grey-400 text-custom-grey-500 font-medium outline-none"
+                            />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                            >
 
-                        <div className=" w-full flex justify-end">
-                            <Link href='/admin/forgot-password' className=" font-medium text-custom-grey-500 hover:underline hover:cursor-pointer">Forgot password</Link>
+                                {showConfirmPassword ? (
+                                    <FiEye className="w-5 h-5" />
+
+                                ) : (
+                                    <FiEyeOff className="w-5 h-5" />
+
+                                )}
+                            </button>
                         </div>
 
-                        {/* Login Button */}
+                        {isPasswordNotMatching && <p className=" leading-0 text-sm text-red-500">Passwords are not matching</p>}
+
+
                         <button
                             type="submit"
                             className="w-full mt-7 bg-custom-primary-500 flex-center text-lg text-white h-[54px] rounded-sm "
                         >
-                            {isLoading ? <LoaderIcon className='text-xl font-medium animate-spin text-white' /> : 'Login'}
+                            {isLoading ? <LoaderIcon className='text-xl font-medium animate-spin text-white' /> : 'Reset Password'}
                         </button>
                     </form>
 
                     {/* Sign Up */}
                     <p className="text-center  text-custom-grey-500 text-base font-medium mt-5 lg:mt-6">
-                        Don’t have an account?
-                        <a href="#" className=" text-custom-primary-500 font-medium hover:underline ml-1">
-                            Sign up
+                        Did the link expire?
+                        <a href="/admin/forgot-password" className=" text-custom-primary-500 font-medium hover:underline ml-1">
+                            Get a new one
                         </a>
                     </p>
                 </div>

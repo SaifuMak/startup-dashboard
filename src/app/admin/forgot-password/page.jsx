@@ -24,8 +24,9 @@ export default function ForgotPasswordPage() {
         const { success, data, error } = await forgetPassword(email);
         if (success) {
             toast.success(data.message);
+            setEmail("")
         } else {
-            // toast.error(error);
+            toast.error(error);
         }
         setIsLoading(false)
 
@@ -64,7 +65,7 @@ export default function ForgotPasswordPage() {
                                 type="email"
                                 placeholder="Email"
                                 value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                onChange={(e) => setEmail(e.target.value.trim())}
                                 required
                                 className="w-full placeholder:text-custom-grey-400  text-custom-grey-500 lg:placeholder:text-lg font-medium outline-none "
                             />
