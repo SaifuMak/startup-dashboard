@@ -24,8 +24,6 @@ export default function LoginPage() {
 
     const router = useRouter();
 
-   
-
     const handleLogin = async (e) => {
         e.preventDefault();
         toast.dismiss()
@@ -40,6 +38,8 @@ export default function LoginPage() {
         if (res.success) {
             router.replace('/admin/dashboard')
             toast.success("Login Success")
+            setEmail("")
+            setPassword("")
         }
         else {
             toast.error("Incorrect Email or Password")

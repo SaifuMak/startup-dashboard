@@ -81,7 +81,6 @@ function Websites() {
                             </div>
 
 
-
                             <div className=" flex items-center md:space-x-5 max-md:mt-6">
 
                                 <div className=" flex  max-md:w-full space-x-1 px-2 py-1.5    rounded-lg justify-between items-center border border-[#C8C8C8]">

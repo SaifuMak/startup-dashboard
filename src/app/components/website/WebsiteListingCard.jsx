@@ -6,6 +6,7 @@ import { FiCalendar } from "react-icons/fi";
 import { CiSettings } from "react-icons/ci";
 import { LiaEdit } from "react-icons/lia";
 import { GoDotFill } from "react-icons/go";
+import Link from 'next/link';
 
 function WebsiteListingCard({ data = [] }) {
     return (
@@ -53,7 +54,7 @@ function WebsiteListingCard({ data = [] }) {
                         </div>
 
                         <div className=" mt-7 text-sm flex space-x-6  text-[#17181A]">
-                            <button className="border  flex items-center space-x-1 rounded-md max-lg:text-sm cursor-pointer px-2 py-0.5 border-[#B7B7B7]"><CiSettings size={18} /> <span className=" font-medium">Settings</span></button>
+                            <Link href={`/admin/websites/${obj.primary_domain}/settings`} className="border  flex items-center space-x-1 rounded-md max-lg:text-sm cursor-pointer px-2 py-0.5 border-[#B7B7B7]"><CiSettings size={18} /> <span className=" font-medium">Settings</span></Link>
                             <button className="border flex items-center space-x-1 rounded-md px-2 cursor-pointer py-0.5 border-[#B7B7B7]"><LiaEdit size={18} /> <span className=" font-medium">Edit Content</span></button>
 
                         </div>
