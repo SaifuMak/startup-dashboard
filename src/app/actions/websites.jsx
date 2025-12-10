@@ -1,3 +1,4 @@
+'use client'
 
 import AXIOS_INSTANCE from "../lib/axios";
 
@@ -13,5 +14,37 @@ export const getUserSites = async () => {
         };
 
     } finally {
+    }
+}
+
+
+export const getSiteDetails = async (websiteUrl) => {
+    try {
+        const response = await AXIOS_INSTANCE.get(`v1/site-detail`, {
+            params: { host: websiteUrl }
+        });
+        // console.log((await response).data);
+        
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
+    }
+}
+
+export const updateSiteStatus = async (websiteUrl, status) => {
+    try {
+        const response = await AXIOS_INSTANCE.patch(`v1/update-website-status`, {
+            host: websiteUrl,
+            website_status: status
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
     }
 }
