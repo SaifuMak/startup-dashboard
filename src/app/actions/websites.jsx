@@ -24,7 +24,7 @@ export const getSiteDetails = async (websiteUrl) => {
             params: { host: websiteUrl }
         });
         // console.log((await response).data);
-        
+
         return { success: true, data: response.data };
     } catch (error) {
         return {
@@ -39,6 +39,26 @@ export const updateSiteStatus = async (websiteUrl, status) => {
         const response = await AXIOS_INSTANCE.patch(`v1/update-website-status`, {
             host: websiteUrl,
             website_status: status
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
+    }
+}
+
+
+export const uploadLogo = async (websiteUrl, formData) => {
+    try {
+        const response = await AXIOS_INSTANCE.post(`v1/upload-site-logo`, formData, {
+            params: {
+                host: websiteUrl
+            },
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
         });
         return { success: true, data: response.data };
     } catch (error) {

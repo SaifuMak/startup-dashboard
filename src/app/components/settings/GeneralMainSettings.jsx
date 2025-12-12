@@ -1,7 +1,8 @@
 'use client'
-import { updateSiteStatus } from "@/app/actions/websites";
+import { updateSiteStatus, uploadLogo } from "@/app/actions/websites";
 import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
+import { useRef, useState } from "react";
 
 export const SettingsRow = ({ title, description, descriptionStyle = '', isBottomBorder = true, children }) => {
 
@@ -24,6 +25,10 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
 
   const settingsData = data?.settings || {};
   console.log('GeneralMainSettings data:', data);
+
+  const fileInputRef = useRef(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const [selectedLogoFile, setSelectedLogoFile] = useState(null);
 
   // handle status change
   const handleStatusChange = async (WebsiteStatus) => {
@@ -52,6 +57,46 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
       setIsLoading(false);
     }
   }
+
+
+  const handleLogoFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Optional preview
+    setLogoPreview(URL.createObjectURL(file));
+    setSelectedLogoFile(file);
+  };
+
+
+  const handleLogoUpdate = async () => {
+    if (!selectedLogoFile) return;
+    setIsLoading(true);
+
+    const formData = new FormData();
+    formData.append("logo", selectedLogoFile);
+
+    const { success, data: responseData } = await uploadLogo(data.primary_domain, formData);
+
+    if (success) {
+      toast.success('Logo uploaded successfully');
+      setLogoPreview(null);
+      setSelectedLogoFile(null);
+      fileInputRef.current.value = null;
+
+      updateLocalData({
+        settings: {
+          ...data.settings,
+          logo: responseData.logo_url
+        }
+      });
+
+    } else {
+      toast.error('Failed to upload logo');
+    }
+    setIsLoading(false);
+  }
+
 
 
   return (
@@ -83,16 +128,35 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
       </SettingsRow>
 
       <SettingsRow title="Logo" description="Upload PNG or SVG for better quality">
-
-        <div className="">
-
-          <div className="  border border-admin-violet-border flex-center  h-[100px] w-[300px] relative rounded-sm">
-            <p className=" text-[#A3A3A3] text-sm">No logo uploaded </p>
+        <div>
+          <div onClick={() => fileInputRef.current.click()} className="border cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px] w-[300px] relative rounded-sm">
+            {selectedLogoFile ? (
+              <img src={logoPreview} className="h-full  w-full" alt="Logo Preview" />
+            ) : settingsData?.logo ? (
+              <img src={settingsData?.logo} className="h-full w-full  " alt="Logo" />
+            ) : (
+              <p className=" text-[#A3A3A3] text-sm ">No logo uploaded</p>
+            )}
           </div>
-          <button className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white">UPLOAD</button>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            className="hidden"
+            accept="image/*"
+            onChange={handleLogoFileChange}
+          />
+
+          <button
+            onClick={handleLogoUpdate}
+
+            className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white"
+          >
+            UPLOAD
+          </button>
         </div>
 
-      </SettingsRow>
+      </SettingsRow >
 
       <SettingsRow title="Favicon" description="Upload your website’s icon.
           PNG or SVG (512*512px)" descriptionStyle=' w-[200px]' isBottomBorder={false}>
@@ -106,9 +170,9 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
 
       </SettingsRow>
 
-   
 
-    </div>
+
+    </div >
 
 
   )

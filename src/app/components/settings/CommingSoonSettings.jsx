@@ -32,7 +32,6 @@ function CommingSoonSettings({ data, updateLocalData }) {
     };
 
 
-
     return (
         <div className=" relative w-full min-h-[70vh]  rounded-lg bg-white   py-10">
             <div className=" border rounded-sm border-[#DADADA] mx-20  flex items-center  ">
