@@ -12,6 +12,10 @@ export default function SettingsClient({ websiteUrl }) {
     const [websiteData, setWebsiteData] = useState(null);
     const [isLoading, setIsLoading] = useState(true)
 
+    const updateLocalData = (updates) => {
+        setWebsiteData(prev => ({ ...prev, ...updates }));
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             const { success, data } = await getSiteDetails(websiteUrl);
@@ -25,7 +29,7 @@ export default function SettingsClient({ websiteUrl }) {
         fetchData();
     }, [websiteUrl]);
 
-
+   
 
     return (
         <div className=" flex ">
@@ -33,9 +37,9 @@ export default function SettingsClient({ websiteUrl }) {
             <div className=" w-full  min-h-screen flex flex-col  bg-admin-light-background ">
                 <NavBar />
 
-                <div className="w-10/12 p-8 xl:p-10 2xl:p-16">
+                <div className="xl:w-10/12 p-8 xl:p-10 2xl:p-16">
 
-                    <div className=" flex   items-center justify-between mb-8 ">
+                    <div className=" flex items-center justify-between mb-8 ">
 
                         <div className="flex  items-center space-x-5  ">
                             <h1 className=" text-[22px] font-semibold ">Settings</h1>
@@ -49,14 +53,14 @@ export default function SettingsClient({ websiteUrl }) {
                         <button className=" px-8 py-1.5 bg-admin-violet text-sm font-medium text-white rounded-xl">GO BACK</button>
                     </div>
 
-            { isLoading ? (
-                <div className=" flex items-center justify-center min-h-[60vh] ">
-                    <LoaderIcon />
-                </div>
-            ) : (
+                    {isLoading ? (
+                        <div className=" flex items-center justify-center min-h-[60vh] ">
+                            <LoaderIcon />
+                        </div>
+                    ) : (
 
-                  websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} />
-            )}
+                        websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData} />
+                    )}
 
                 </div>
 

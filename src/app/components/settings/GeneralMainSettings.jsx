@@ -1,7 +1,7 @@
 'use client'
 import { updateSiteStatus } from "@/app/actions/websites";
+import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
-import { useState } from "react";
 
 export const SettingsRow = ({ title, description, descriptionStyle = '', isBottomBorder = true, children }) => {
 
@@ -19,31 +19,43 @@ export const SettingsRow = ({ title, description, descriptionStyle = '', isBotto
   )
 }
 
-  // this is the full data object passed as prop
-function GeneralMainSettings({ data }) {
+// this is the full data object passed as prop
+function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading }) {
 
-  const [settingsData, setSettingsData] = useState(data.settings);
+  const settingsData = data?.settings || {};
+  console.log('GeneralMainSettings data:', data);
 
   // handle status change
   const handleStatusChange = async (WebsiteStatus) => {
+    toast.dismiss();
 
-    toast.dismiss()
     if (settingsData?.website_status === WebsiteStatus) return; // no change
+    setIsLoading(true);
+
     const { success } = await updateSiteStatus(data.primary_domain, WebsiteStatus)
 
     if (success) {
-      setSettingsData((prev) => ({ ...prev, website_status: WebsiteStatus }))
+
       toast.success('Status updated successfully')
+
+      updateLocalData({
+        settings: {
+          ...data.settings,
+          website_status: WebsiteStatus
+        }
+      });
+      setIsLoading(false);
+
     }
     else {
       toast.error('Failed to update status')
+      setIsLoading(false);
     }
   }
 
 
-
   return (
-    <>
+    <div className="">
 
       <SettingsRow title="Status" description="Publish or unpublish your site">
         {/*  status selection */}
@@ -94,7 +106,9 @@ function GeneralMainSettings({ data }) {
 
       </SettingsRow>
 
-    </>
+   
+
+    </div>
 
 
   )
