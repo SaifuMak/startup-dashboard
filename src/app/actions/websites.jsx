@@ -68,3 +68,24 @@ export const uploadLogo = async (websiteUrl, formData) => {
         };
     }
 }
+
+
+export const uploadFavicon = async (websiteUrl, formData) => {
+    try {
+        const response = await AXIOS_INSTANCE.post(`v1/upload-site-favicon`, formData, {
+            params: {
+                host: websiteUrl
+            },
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
+    }
+}
+

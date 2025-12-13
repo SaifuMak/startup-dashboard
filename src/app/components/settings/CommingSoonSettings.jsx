@@ -23,7 +23,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'Main':
-                return <GeneralMainSettings data={data} updateLocalData={updateLocalData} isLoading={isLoading} setIsLoading={setIsLoading} />;
+                return <GeneralMainSettings data={data} updateLocalData={updateLocalData}  setIsLoading={setIsLoading} />;
             case 'Design':
                 return <div>Design Coming Soon</div>;
             default:

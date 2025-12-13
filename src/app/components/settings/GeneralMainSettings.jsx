@@ -1,5 +1,5 @@
 'use client'
-import { updateSiteStatus, uploadLogo } from "@/app/actions/websites";
+import { updateSiteStatus, uploadLogo,uploadFavicon } from "@/app/actions/websites";
 import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
@@ -21,14 +21,22 @@ export const SettingsRow = ({ title, description, descriptionStyle = '', isBotto
 }
 
 // this is the full data object passed as prop
-function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading }) {
+function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
   const settingsData = data?.settings || {};
-  console.log('GeneralMainSettings data:', data);
+
+  console.log(settingsData);
+  
 
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);
+
+
+  const faviconFileInputRef = useRef(null);
+  const [faviconPreview, setFaviconPreview] = useState(null);
+  const [selectedFaviconFile, setSelectedFaviconFile] = useState(null);
+
 
   // handle status change
   const handleStatusChange = async (WebsiteStatus) => {
@@ -68,8 +76,7 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
     setSelectedLogoFile(file);
   };
 
-
-  const handleLogoUpdate = async () => {
+   const handleLogoUpdate = async () => {
     if (!selectedLogoFile) return;
     setIsLoading(true);
 
@@ -98,6 +105,42 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
   }
 
 
+
+  const handleFaviconFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Optional preview
+    setFaviconPreview(URL.createObjectURL(file));
+    setSelectedFaviconFile(file);
+  };
+
+  const handleFaviconUpdate = async () => {
+    if (!selectedFaviconFile) return;
+    setIsLoading(true);
+    const formData = new FormData();
+    formData.append("favicon", selectedFaviconFile);
+    const { success, data: responseData } = await uploadFavicon(data.primary_domain, formData);
+
+    if (success) {  
+      toast.success('Favicon uploaded successfully');
+      setFaviconPreview(null);
+      setSelectedFaviconFile(null);
+      faviconFileInputRef.current.value = null; 
+      updateLocalData({
+        settings: {
+          ...data.settings,
+          faviconUrl: responseData.favicon_url
+        }
+      });
+    }
+    else {
+      toast.error('Failed to upload favicon');
+    }
+    setIsLoading(false);
+  };
+
+ 
 
   return (
     <div className="">
@@ -148,11 +191,11 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
           />
 
           <button
-            onClick={handleLogoUpdate}
+            onClick={ selectedLogoFile ? handleLogoUpdate : () => fileInputRef.current.click()}
 
             className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white"
           >
-            UPLOAD
+          { selectedLogoFile ? 'SAVE' : 'UPLOAD'}
           </button>
         </div>
 
@@ -161,11 +204,32 @@ function GeneralMainSettings({ data, updateLocalData, isLoading, setIsLoading })
       <SettingsRow title="Favicon" description="Upload your website’s icon.
           PNG or SVG (512*512px)" descriptionStyle=' w-[200px]' isBottomBorder={false}>
 
-        <div className="">
-          <div className="  border border-admin-violet-border flex-center  h-[100px] w-[100px] relative rounded-sm">
-            <p className=" text-[#A3A3A3] text-sm">No Favicon </p>
+        <div>
+          <div onClick={() => faviconFileInputRef.current.click()} className="border cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px] w-[300px] relative rounded-sm">
+            {selectedFaviconFile ? (
+              <img src={faviconPreview} className="h-full  w-full" alt="Favicon Preview" />
+            ) : settingsData?.faviconUrl ? (
+              <img src={settingsData?.faviconUrl} className="h-full w-full  " alt="Favicon" />
+            ) : (
+              <p className=" text-[#A3A3A3] text-sm ">No favicon uploaded</p>
+            )}
           </div>
-          <button className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3  text-xs rounded-md text-white">UPLOAD</button>
+
+          <input
+            type="file"
+            ref={faviconFileInputRef}
+            className="hidden"
+            accept="image/*"
+            onChange={handleFaviconFileChange}
+          />
+
+          <button
+            onClick={ selectedFaviconFile ? handleFaviconUpdate : () => faviconFileInputRef.current.click()}
+
+            className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white"
+          >
+          { selectedFaviconFile ? 'SAVE' : 'UPLOAD'}
+          </button>
         </div>
 
       </SettingsRow>
