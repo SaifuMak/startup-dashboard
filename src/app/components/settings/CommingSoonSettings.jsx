@@ -36,13 +36,13 @@ function CommingSoonSettings({ data, updateLocalData }) {
         <div className=" relative w-full min-h-[70vh]  rounded-lg bg-white   py-10">
             <div className=" border rounded-sm border-[#DADADA] mx-20  flex items-center  ">
                 {settingsTabs.map((tab, index) => (
-                    <div key={index} className={` w-full  p-2   flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
+                    <div key={index} className={` w-full  p-2  text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
                         {tab.name}
                     </div>
                 ))}
             </div>
 
-            <div className=" mt-16 mx-20 ">
+            <div className=" mt-16 mx-20   ">
                 {renderTabContent()}
             </div>
 
