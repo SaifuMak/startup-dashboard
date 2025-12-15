@@ -29,7 +29,7 @@ export default function SettingsClient({ websiteUrl }) {
         fetchData();
     }, [websiteUrl]);
 
-   
+
 
     return (
         <div className=" flex ">
@@ -58,7 +58,6 @@ export default function SettingsClient({ websiteUrl }) {
                             <LoaderIcon />
                         </div>
                     ) : (
-
                         websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData} />
                     )}
 

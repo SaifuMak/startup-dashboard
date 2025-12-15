@@ -27,7 +27,6 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
   console.log(settingsData);
   
-
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);

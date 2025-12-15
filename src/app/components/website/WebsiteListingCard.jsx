@@ -41,12 +41,12 @@ function WebsiteListingCard({ data = [] }) {
 
 
                         <div className=" mt-4 text-sm flex max-xl:flex-col max-xl:space-y-2 xl:space-x-8  2xl:space-x-12 ">
-                            <div className=" flex  items-center space-x-2">
+                            <div className=" flex   space-x-2">
                                 <FiCalendar size={16} />
                                 <p className="">Started</p>
                                 <p className=" text-[#7E7E7E]">{obj.created_at}</p>
                             </div>
-                            <div className=" flex  items-center space-x-2">
+                            <div className=" flex space-x-2">
                                 <FiCalendar size={16} />
                                 <p className="">Renews</p>
                                 <p className=" text-[#7E7E7E]">{obj.renewal_date_formatted}</p>
