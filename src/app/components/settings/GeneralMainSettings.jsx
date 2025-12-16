@@ -4,6 +4,7 @@ import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
 
+
 export const SettingsRow = ({ title, description, descriptionStyle = '', isBottomBorder = true, children }) => {
 
   const h2TagStyles = " text-xl font-medium ";
@@ -20,6 +21,7 @@ export const SettingsRow = ({ title, description, descriptionStyle = '', isBotto
   )
 }
 
+
 // this is the full data object passed as prop
 function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
@@ -30,7 +32,6 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);
-
 
   const faviconFileInputRef = useRef(null);
   const [faviconPreview, setFaviconPreview] = useState(null);
@@ -202,13 +203,13 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
           PNG or SVG (512*512px)" descriptionStyle=' w-[200px]' isBottomBorder={false}>
 
         <div>
-          <div onClick={() => faviconFileInputRef.current.click()} className="border cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px] w-[300px] relative rounded-sm">
+          <div onClick={() => faviconFileInputRef.current.click()} className="border w-[100px] cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px]  relative rounded-sm">
             {selectedFaviconFile ? (
-              <img src={faviconPreview} className="h-full  w-full" alt="Favicon Preview" />
+              <img src={faviconPreview} className="h-full  w-[100px]" alt="Favicon Preview" />
             ) : settingsData?.faviconUrl ? (
-              <img src={settingsData?.faviconUrl} className="h-full w-full  " alt="Favicon" />
+              <img src={settingsData?.faviconUrl} className="h-full w-[100px]  " alt="Favicon" />
             ) : (
-              <p className=" text-[#A3A3A3] text-sm ">No favicon uploaded</p>
+              <p className=" text-[#A3A3A3] text-sm text-center ">No favicon uploaded</p>
             )}
           </div>
 

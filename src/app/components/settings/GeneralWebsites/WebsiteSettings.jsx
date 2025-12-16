@@ -3,14 +3,13 @@ import React from 'react'
 import { useState } from 'react';
 import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
-
+import GeneralMainDesign from '../GeneralMainDesign';
 
 function WebsiteSettings({ data, updateLocalData }) {
 
-
     const settingsTabs = [
         { name: 'Main', component: <GeneralMainSettings data={data} updateLocalData={updateLocalData} /> },
-        { name: 'Design', component: null },
+        { name: 'Design', component: <GeneralMainDesign data={data} updateLocalData={updateLocalData} /> },
         { name: 'Colors', component: null },
         { name: 'Typography', component: null },
         { name: 'SEO', component: null },
@@ -26,7 +25,7 @@ function WebsiteSettings({ data, updateLocalData }) {
             case 'Main':
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
-                return <div>Design Coming Soon</div>;
+                return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             default:
                 return null;
         }
@@ -34,7 +33,7 @@ function WebsiteSettings({ data, updateLocalData }) {
 
 
     return (
-        <div className=" relative w-full min-h-[70vh]  rounded-lg bg-white   py-10">
+        <div className=" relative w-full min-h-[70vh] bg-white  rounded-lg    py-10">
             <div className=" border rounded-sm border-[#DADADA] mx-20  flex items-center  ">
                 {settingsTabs.map((tab, index) => (
                     <div key={index} className={` w-full  p-2  text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>

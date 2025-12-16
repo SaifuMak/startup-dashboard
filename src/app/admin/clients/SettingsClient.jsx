@@ -9,7 +9,6 @@ import { getSiteDetails } from "@/app/actions/websites";
 import { useEffect, useState } from "react";
 
 
-
 export default function SettingsClient({ websiteUrl }) {
 
     const [websiteData, setWebsiteData] = useState(null);
@@ -40,7 +39,7 @@ export default function SettingsClient({ websiteUrl }) {
             <div className=" w-full  min-h-screen flex flex-col  bg-admin-light-background ">
                 <NavBar />
 
-                <div className="w-10/12 xl:w-10/12  p-8 xl:p-10 2xl:p-16">
+                <div className="  w-11/12 2xl:w-10/12  p-8 xl:p-10 2xl:p-16">
 
                     <div className=" flex items-center justify-between mb-8 ">
 
@@ -62,8 +61,8 @@ export default function SettingsClient({ websiteUrl }) {
                         </div>
                     ) : (
                         <>
-                            {websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData} />}
-                            {websiteData?.site_type === 'website' && <WebsiteSettings data={websiteData} updateLocalData={updateLocalData} />}
+                            {websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData}  />}
+                            {websiteData?.site_type === 'website' && <WebsiteSettings data={websiteData} updateLocalData={updateLocalData}  />}
                         </>
                     )}
 

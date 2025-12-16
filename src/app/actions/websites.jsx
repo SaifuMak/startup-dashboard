@@ -50,6 +50,23 @@ export const updateSiteStatus = async (websiteUrl, status) => {
 }
 
 
+
+// export const updateSiteTheme = async (websiteUrl, theme) => {
+//     try {
+//         const response = await AXIOS_INSTANCE.patch(`v1/update-website-theme`, {
+//             host: websiteUrl,
+//             theme: theme
+//         });
+//         return { success: true, data: response.data };
+//     } catch (error) {
+//         return {
+//             success: false,
+//             error: error.response?.data || "Something went wrong",
+//         };
+//     }
+// }
+
+
 export const uploadLogo = async (websiteUrl, formData) => {
     try {
         const response = await AXIOS_INSTANCE.post(`v1/upload-site-logo`, formData, {

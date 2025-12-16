@@ -3,13 +3,13 @@ import React from 'react'
 import { useState } from 'react';
 import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
+import GeneralMainDesign from '../GeneralMainDesign';
 
 function CommingSoonSettings({ data, updateLocalData }) {
 
-
     const settingsTabs = [
         { name: 'Main', component: <GeneralMainSettings data={data} updateLocalData={updateLocalData} /> },
-        { name: 'Design', component: null },
+        { name: 'Design', component: <GeneralMainDesign data={data} updateLocalData={updateLocalData} /> },
         { name: 'Colors', component: null },
         { name: 'Typography', component: null },
         { name: 'SEO', component: null },
@@ -25,7 +25,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
             case 'Main':
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
-                return <div>Design Coming Soon</div>;
+                return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             default:
                 return null;
         }
