@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
 import { useState } from 'react';
-import GeneralMainSettings from './GeneralMainSettings';
-import LoaderIcon from '../general-components/LoaderIcon';
+import GeneralMainSettings from '../GeneralMainSettings';
+import LoaderIcon from '../../general-components/LoaderIcon';
 
 function CommingSoonSettings({ data, updateLocalData }) {
 
@@ -23,7 +23,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'Main':
-                return <GeneralMainSettings data={data} updateLocalData={updateLocalData}  setIsLoading={setIsLoading} />;
+                return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
                 return <div>Design Coming Soon</div>;
             default:
@@ -42,14 +42,13 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 ))}
             </div>
 
-            <div className=" mt-16 mx-20   ">
+            <div className=" mt-16 mx-20 ">
                 {renderTabContent()}
             </div>
 
             {isLoading && <div className="  absolute inset-0 flex-center bg-slate-50/10 ">
                 <LoaderIcon className='text-admin-violet z-50 animate-spin text-3xl' />
             </div>}
-
         </div>
     )
 }

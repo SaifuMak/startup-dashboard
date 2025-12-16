@@ -1,5 +1,5 @@
 'use client'
-import { updateSiteStatus, uploadLogo,uploadFavicon } from "@/app/actions/websites";
+import { updateSiteStatus, uploadLogo, uploadFavicon } from "@/app/actions/websites";
 import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
@@ -25,8 +25,8 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
   const settingsData = data?.settings || {};
 
-  console.log(settingsData);
-  
+  // console.log(settingsData);
+
   const fileInputRef = useRef(null);
   const [logoPreview, setLogoPreview] = useState(null);
   const [selectedLogoFile, setSelectedLogoFile] = useState(null);
@@ -75,7 +75,7 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
     setSelectedLogoFile(file);
   };
 
-   const handleLogoUpdate = async () => {
+  const handleLogoUpdate = async () => {
     if (!selectedLogoFile) return;
     setIsLoading(true);
 
@@ -103,8 +103,6 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
     setIsLoading(false);
   }
 
-
-
   const handleFaviconFileChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -121,11 +119,11 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
     formData.append("favicon", selectedFaviconFile);
     const { success, data: responseData } = await uploadFavicon(data.primary_domain, formData);
 
-    if (success) {  
+    if (success) {
       toast.success('Favicon uploaded successfully');
       setFaviconPreview(null);
       setSelectedFaviconFile(null);
-      faviconFileInputRef.current.value = null; 
+      faviconFileInputRef.current.value = null;
       updateLocalData({
         settings: {
           ...data.settings,
@@ -139,7 +137,7 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
     setIsLoading(false);
   };
 
- 
+
 
   return (
     <div className="">
@@ -190,11 +188,11 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
           />
 
           <button
-            onClick={ selectedLogoFile ? handleLogoUpdate : () => fileInputRef.current.click()}
+            onClick={selectedLogoFile ? handleLogoUpdate : () => fileInputRef.current.click()}
 
             className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white"
           >
-          { selectedLogoFile ? 'SAVE' : 'UPLOAD'}
+            {selectedLogoFile ? 'SAVE' : 'UPLOAD'}
           </button>
         </div>
 
@@ -223,11 +221,11 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
           />
 
           <button
-            onClick={ selectedFaviconFile ? handleFaviconUpdate : () => faviconFileInputRef.current.click()}
+            onClick={selectedFaviconFile ? handleFaviconUpdate : () => faviconFileInputRef.current.click()}
 
             className=" bg-admin-violet px-5 cursor-pointer py-1 mt-3 text-xs rounded-md text-white"
           >
-          { selectedFaviconFile ? 'SAVE' : 'UPLOAD'}
+            {selectedFaviconFile ? 'SAVE' : 'UPLOAD'}
           </button>
         </div>
 
