@@ -71,7 +71,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
     return (
         <div className=" w-full">
 
-            <div className=" flex   justify-between 2xl:w-8/12  ">
+            <div className=" flex justify-between 2xl:w-8/12  ">
                 <div className="">
                     <h2 className=" text-xl 2xl:text-2xl font-semibold ">Color theme</h2>
                     <p className=" text-[#7D7878] 2xl:text-lg mt-1">Choose a style for your site</p>
@@ -87,7 +87,6 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                         <p className="font-medium">Dark</p>
                     </div>
                 </div>
-
             </div>
 
             {/* templates section */}
@@ -133,7 +132,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                                             </a>
 
                                             <div onClick={() => handleTemplateSwitch(template.key)} className="w-1/2  h-full cursor-pointer  flex-center bg-[#099613] text-white ">CHOOSE</div>
-                                        </div>)}
+                                    </div>)}
                             </div>
                         </div>
                         <p className=" w-full mx-auto capitalize text-center mt-3 font-medium">{template.key}</p>

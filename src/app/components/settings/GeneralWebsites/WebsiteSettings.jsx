@@ -5,7 +5,7 @@ import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
 
-function WebsiteSettings({ data, updateLocalData }) {
+function WebsiteSettings({ data,updateLocalData }) {
 
     const settingsTabs = [
         { name: 'Main', component: <GeneralMainSettings data={data} updateLocalData={updateLocalData} /> },
@@ -20,7 +20,9 @@ function WebsiteSettings({ data, updateLocalData }) {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    
     const renderTabContent = () => {
+
         switch (selectedTab) {
             case 'Main':
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;

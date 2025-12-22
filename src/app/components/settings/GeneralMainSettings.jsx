@@ -4,7 +4,6 @@ import LoaderIcon from "../general-components/LoaderIcon";
 import { toast } from "sonner";
 import { useRef, useState } from "react";
 
-
 export const SettingsRow = ({ title, description, descriptionStyle = '', isBottomBorder = true, children }) => {
 
   const h2TagStyles = " text-xl font-medium ";

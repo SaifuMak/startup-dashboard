@@ -7,7 +7,7 @@ import CommingSoonSettings from "@/app/components/settings/CommingSoon/CommingSo
 import WebsiteSettings from "@/app/components/settings/GeneralWebsites/WebsiteSettings";
 import { getSiteDetails } from "@/app/actions/websites";
 import { useEffect, useState } from "react";
-
+import { IoIosArrowRoundForward } from "react-icons/io";
 
 export default function SettingsClient({ websiteUrl }) {
 
@@ -48,7 +48,19 @@ export default function SettingsClient({ websiteUrl }) {
                             <div className=" flex items-center text-[#6E6E6E]  space-x-2 mt-1 xl:space-x-2">
 
                                 <SlGlobe className='xl:text-lg' />
-                                <p className=" text-admin-grey-600  xl:text-lg ">{websiteData?.primary_domain}</p>
+                                <a
+                                    href={`https://${websiteData?.primary_domain}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-admin-grey-600 flex group hover:text-black cursor-pointer xl:text-lg"
+                                >
+                                    {websiteData?.primary_domain}
+                                    <span className="flex items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300 rotate-320">
+                                        <IoIosArrowRoundForward />
+                                    </span>
+                                </a>
+
+
                             </div>
                         </div>
 
@@ -61,8 +73,8 @@ export default function SettingsClient({ websiteUrl }) {
                         </div>
                     ) : (
                         <>
-                            {websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData}  />}
-                            {websiteData?.site_type === 'website' && <WebsiteSettings data={websiteData} updateLocalData={updateLocalData}  />}
+                            {websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData} />}
+                            {websiteData?.site_type === 'website' && <WebsiteSettings data={websiteData} updateLocalData={updateLocalData} />}
                         </>
                     )}
 
