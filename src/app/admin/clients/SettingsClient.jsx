@@ -9,6 +9,7 @@ import { getSiteDetails } from "@/app/actions/websites";
 import { useEffect, useState } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
+// setting client main component
 export default function SettingsClient({ websiteUrl }) {
 
     const [websiteData, setWebsiteData] = useState(null);
@@ -20,6 +21,7 @@ export default function SettingsClient({ websiteUrl }) {
 
     useEffect(() => {
         const fetchData = async () => {
+            // fetch site details using the provided websiteUrl
             const { success, data } = await getSiteDetails(websiteUrl);
             if (success) {
                 setWebsiteData(data);
@@ -41,7 +43,7 @@ export default function SettingsClient({ websiteUrl }) {
 
                 <div className="  w-11/12 2xl:w-10/12  p-8 xl:p-10 2xl:p-16">
 
-                    <div className=" flex items-center justify-between mb-8 ">
+                    <div className="flex items-center justify-between mb-8 ">
 
                         <div className="flex  items-center space-x-5  ">
                             <h1 className=" text-[22px] font-semibold ">Settings</h1>
@@ -60,18 +62,18 @@ export default function SettingsClient({ websiteUrl }) {
                                     </span>
                                 </a>
 
-
                             </div>
                         </div>
-
                         <button className=" px-8 py-1.5 bg-admin-violet text-sm font-medium text-white rounded-xl">GO BACK</button>
                     </div>
+
 
                     {isLoading ? (
                         <div className=" flex items-center justify-center min-h-[60vh] ">
                             <LoaderIcon />
                         </div>
                     ) : (
+                        // settings type for different site types
                         <>
                             {websiteData?.site_type === 'comming_soon_site' && <CommingSoonSettings data={websiteData} updateLocalData={updateLocalData} />}
                             {websiteData?.site_type === 'website' && <WebsiteSettings data={websiteData} updateLocalData={updateLocalData} />}

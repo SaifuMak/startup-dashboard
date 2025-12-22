@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 
+// this deals with design settings common for all site types
 export default function GeneralMainDesign({ data, updateLocalData, setIsLoading, isLoading }) {
 
     const settingsData = data?.settings || {};
@@ -31,6 +32,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
         if (success) {
             toast.success('Template updated successfully')
 
+            // updated local data to reflect changes immediately
             updateLocalData({
                 settings: {
                     ...data.settings,
@@ -118,8 +120,11 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                             <div className={`absolute group-hover:opacity-100 opacity-0 transition-opacity duration-500 inset-0 w-full h-full bg-black/20 z-10`}></div>
 
                             <div className=" h-12 z-20  text-sm absolute bottom-0 font-medium text-white w-full flex-center">
-                                {(settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme) ? (<div className=" w-full   flex-center h-full bg-[#099613]">CURRENTLY ACTIVE</div>)
+                                {(settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme) ? 
+                                // currently active template
+                                (<div className=" w-full   flex-center h-full bg-[#099613]">CURRENTLY ACTIVE</div>)
                                     : (
+                                        // options to preview or choose template
                                         <div className=" translate-y-12  opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex-center w-full h-full">
                                             <a
                                                 href={selectedLayoutTheme === "light" ? template.light_mode_preview : template.dark_mode_preview}
@@ -135,6 +140,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                                     </div>)}
                             </div>
                         </div>
+                        {/* template key display */}
                         <p className=" w-full mx-auto capitalize text-center mt-3 font-medium">{template.key}</p>
                     </div>
                 ))}
