@@ -14,7 +14,7 @@ function WebsiteListingCard({ data = [] }) {
             {data?.map((obj, ind) => (
                 <div key={ind} className="my-6  px-4 lg:px-8 py-6 rounded-xl border border-[#EEEEEE] md:space-x-7 xl:space-x-16  flex max-md:flex-col  bg-white">
                     <div className=" 2xl:w-[420px] xl:w-[400px] md:w-[320px] bg-slate-200 2xl:h-[250px] xl:h-[220px] lg:h-[200px] sm:h-[240px] h-[180px] relative">
-                        <Image src='/image/demo.png' alt={obj.primary_domain} fill className=' w-full h-full  ' />
+                        <Image src={ obj?.preview_image_url ? obj.preview_image_url : '/image/demo.png'} alt={obj.primary_domain} fill className=' w-full h-full  ' />
                     </div>
 
                     <div className="  mt-5 space-y-6  xl:space-y-9 ">

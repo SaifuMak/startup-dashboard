@@ -24,12 +24,12 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
         if (isLoading) return;
         toast.dismiss();
         setIsLoading(true);
-        data = {
+        const payload = {
             host: data.primary_domain,
             theme: selectedLayoutTheme,
             template_key: selectedTemplateKeyForSwitching
         }
-        const { success } = await updateSiteTheme(data)
+        const { success } = await updateSiteTheme(payload)
 
         if (success) {
             toast.success('Template updated successfully')
