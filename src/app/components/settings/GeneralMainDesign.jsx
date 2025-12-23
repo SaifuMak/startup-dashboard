@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
 
-// this deals with design settings common for all site types
+// this deals with design settings common for all site types(design tab)
 export default function GeneralMainDesign({ data, updateLocalData, setIsLoading, isLoading }) {
 
     const settingsData = data?.settings || {};
@@ -12,6 +12,8 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
     const [selectedLayoutTheme, setSelectedLayoutTheme] = useState('light')
     const [selectedTemplateKeyForSwitching, setselectedTemplateKeyForSwitching] = useState(null)
     const [templateSwitchingConfirmatiom, setTemplateSwitchingConfirmatiom] = useState(false)
+
+    const [ClickedOrHoveredTemplateKey, setClickedOrHoveredTemplateKey] = useState(null)
 
     const handleTemplateSwitch = (newTemplateKey) => {
         setselectedTemplateKeyForSwitching(newTemplateKey)
@@ -71,15 +73,15 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
 
 
     return (
-        <div className=" w-full">
+        <div className=" w-full max-md:text-sm">
 
-            <div className=" flex justify-between 2xl:w-8/12  ">
+            <div className=" flex md:justify-between max-md:flex-col max-md:space-y-5 2xl:w-8/12  ">
                 <div className="">
                     <h2 className=" text-xl 2xl:text-2xl font-semibold ">Color theme</h2>
                     <p className=" text-[#7D7878] 2xl:text-lg mt-1">Choose a style for your site</p>
                 </div>
 
-                <div className=" flex items-center  space-x-10">
+                <div className=" flex  items-center  space-x-10">
                     <div onClick={() => setSelectedLayoutTheme('light')} className=" cursor-pointer  border px-7 py-1 rounded-sm  border-admin-violet-border flex items-center  space-x-2">
                         <div className={`${selectedLayoutTheme === 'light' ? ' bg-admin-violet' : 'border border-[#7453EC]'} size-3 rounded-full`} ></div>
                         <p className=" font-medium">Light</p>
@@ -92,58 +94,69 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
             </div>
 
             {/* templates section */}
-            <div className="grid grid-cols-3 mt-10 w-full gap-10">
-                {templates.map((template, index) => (
-                    <div className="group" key={index}>
+            <div className="grid lg:grid-cols-3 mt-10 w-full gap-10">
+                {templates.map((template, index) => {
 
+                    const isHoveredOrClicked = ClickedOrHoveredTemplateKey === template.key;
+
+                    return (
                         <div
-                            className={`relative   h-[350px] border bg-gray-100 ${settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme ? ' border-admin-violet-border' : ' border-slate-200'} rounded-md overflow-hidden  w-full`}
-                        >
-                            {/* Light */}
-                            <img
-                                src={template.light_preview_image_url}
-                                alt=""
-                                className={`absolute inset-0 w-full h-full  object-cover
+                            onMouseEnter={() => setClickedOrHoveredTemplateKey(template.key)}
+                            onMouseLeave={() => setClickedOrHoveredTemplateKey(null)}
+                            onClick={() =>  isHoveredOrClicked ? setClickedOrHoveredTemplateKey(null) : setClickedOrHoveredTemplateKey(template.key)}
+
+
+                            className="" key={index}>
+
+                            <div
+                                className={`relative   h-[350px] border bg-gray-100 ${settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme ? ' border-admin-violet-border' : ' border-slate-200'} rounded-md overflow-hidden  w-full`}
+                            >
+                                {/* Light */}
+                                <img
+                                    src={template.light_preview_image_url}
+                                    alt=""
+                                    className={`absolute inset-0 w-full h-full  object-cover
                             transition-opacity duration-500 ease-in-out
                             ${selectedLayoutTheme === "light" ? "opacity-100" : "opacity-0"}`}
-                            />
+                                />
 
-                            {/* Dark */}
-                            <img
-                                src={template.dark_preview_image_url}
-                                alt=""
-                                className={`absolute inset-0 w-full h-full object-cover
+                                {/* Dark */}
+                                <img
+                                    src={template.dark_preview_image_url}
+                                    alt=""
+                                    className={`absolute inset-0 w-full h-full object-cover
                             transition-opacity duration-500 ease-in-out
                             ${selectedLayoutTheme === "dark" ? "opacity-100" : "opacity-0"}`}
-                            />
+                                />
 
-                            <div className={`absolute group-hover:opacity-100 opacity-0 transition-opacity duration-500 inset-0 w-full h-full bg-black/20 z-10`}></div>
+                                <div className={`absolute ${isHoveredOrClicked ? "opacity-100" : "opacity-0"} transition-opacity duration-500 inset-0 w-full h-full bg-black/20 z-10`}></div>
 
-                            <div className=" h-12 z-20  text-sm absolute bottom-0 font-medium text-white w-full flex-center">
-                                {(settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme) ? 
-                                // currently active template
-                                (<div className=" w-full   flex-center h-full bg-[#099613]">CURRENTLY ACTIVE</div>)
-                                    : (
-                                        // options to preview or choose template
-                                        <div className=" translate-y-12  opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 flex-center w-full h-full">
-                                            <a
-                                                href={selectedLayoutTheme === "light" ? template.light_mode_preview : template.dark_mode_preview}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="w-1/2 h-full cursor-pointer bg-white flex-center text-[#767676]"
-                                            >
-                                                <IoEyeOutline className="mr-1 text-xl" />
-                                                PREVIEW
-                                            </a>
+                                <div className=" h-12 z-20  text-sm absolute bottom-0 font-medium text-white w-full flex-center">
+                                    {(settingsData.templateKey === template.key && settingsData.theme === selectedLayoutTheme) ?
+                                        // currently active template
+                                        (<div className=" w-full   flex-center h-full bg-[#099613]">CURRENTLY ACTIVE</div>)
+                                        : (
+                                            // options to preview or choose template
+                                            <div className={` ${isHoveredOrClicked ? "translate-y-0 opacity-100" : "opacity-0  translate-y-12"} transition-all duration-500 flex-center w-full h-full`}>
+                                                <a
+                                                    href={selectedLayoutTheme === "light" ? template.light_mode_preview : template.dark_mode_preview}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-1/2 h-full cursor-pointer bg-white flex-center text-[#767676]"
+                                                >
+                                                    <IoEyeOutline className="mr-1 text-xl" />
+                                                    PREVIEW
+                                                </a>
 
-                                            <div onClick={() => handleTemplateSwitch(template.key)} className="w-1/2  h-full cursor-pointer  flex-center bg-[#099613] text-white ">CHOOSE</div>
-                                    </div>)}
+                                                <div onClick={() => handleTemplateSwitch(template.key)} className="w-1/2  h-full cursor-pointer  flex-center bg-[#099613] text-white ">CHOOSE</div>
+                                            </div>)}
+                                </div>
                             </div>
+                            {/* template key display */}
+                            <p className=" w-full mx-auto capitalize text-center mt-3 font-medium">{template.key}</p>
                         </div>
-                        {/* template key display */}
-                        <p className=" w-full mx-auto capitalize text-center mt-3 font-medium">{template.key}</p>
-                    </div>
-                ))}
+                    )
+                })}
             </div>
 
             {templateSwitchingConfirmatiom && (<div className=" z-50 fixed inset-0 bg-black/70 flex-center w-full h-full">

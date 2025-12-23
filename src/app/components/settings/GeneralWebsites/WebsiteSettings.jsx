@@ -5,6 +5,7 @@ import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
 
+// this deals with general website settings
 function WebsiteSettings({ data,updateLocalData }) {
 
     const settingsTabs = [
@@ -20,7 +21,7 @@ function WebsiteSettings({ data,updateLocalData }) {
 
     const [isLoading, setIsLoading] = useState(false)
 
-    
+
     const renderTabContent = () => {
 
         switch (selectedTab) {
@@ -35,16 +36,27 @@ function WebsiteSettings({ data,updateLocalData }) {
 
 
     return (
-        <div className=" relative w-full min-h-[70vh] bg-white  rounded-lg    py-10">
-            <div className=" border rounded-sm border-[#DADADA] mx-20  flex items-center  ">
+        <div className=" relative w-full min-h-[70vh] bg-white  rounded-lg  py-5  md:py-10">
+           
+            {/* desktop items  */}
+            <div className=" border max-lg:hidden rounded-sm border-[#DADADA] mx-5 md:mx-20  flex  items-center  ">
                 {settingsTabs.map((tab, index) => (
-                    <div key={index} className={` w-full  p-2  text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
+                    <div key={index} className={` w-full  md:p-2 p-1 max-md:text-xs  md:text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
                         {tab.name}
                     </div>
                 ))}
             </div>
 
-            <div className=" mt-16 mx-20 ">
+              {/* mobile  items  */}
+            <div className="  rounded-sm lg:hidden mx-2  ">
+                {settingsTabs.map((tab, index) => (
+                    <div key={index} className={`  w-full border text-xs  px-3 py-1 my-2 ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
+                        {tab.name}
+                    </div>
+                ))}
+            </div>
+
+            <div className=" mt-16 mx-5 md:mx-20 ">
                 {renderTabContent()}
             </div>
 

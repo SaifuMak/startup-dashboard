@@ -41,11 +41,11 @@ export default function SettingsClient({ websiteUrl }) {
             <div className=" w-full  min-h-screen flex flex-col  bg-admin-light-background ">
                 <NavBar />
 
-                <div className="  w-11/12 2xl:w-10/12  p-8 xl:p-10 2xl:p-16">
+                <div className="  md:w-11/12 2xl:w-10/12 p-5  md:p-8 xl:p-10 2xl:p-16">
 
                     <div className="flex items-center justify-between mb-8 ">
 
-                        <div className="flex  items-center space-x-5  ">
+                        <div className="flex max-md:flex-col   md:items-center md:space-x-5  ">
                             <h1 className=" text-[22px] font-semibold ">Settings</h1>
                             <div className=" flex items-center text-[#6E6E6E]  space-x-2 mt-1 xl:space-x-2">
 
@@ -64,7 +64,7 @@ export default function SettingsClient({ websiteUrl }) {
 
                             </div>
                         </div>
-                        <button className=" px-8 py-1.5 bg-admin-violet text-sm font-medium text-white rounded-xl">GO BACK</button>
+                        <button className=" md:px-8 px-5 py-1.5 bg-admin-violet md:text-sm text-xs font-medium text-white rounded-sm md:rounded-xl">GO BACK</button>
                     </div>
 
 

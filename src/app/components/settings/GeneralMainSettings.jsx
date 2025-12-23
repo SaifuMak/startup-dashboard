@@ -6,12 +6,12 @@ import { useRef, useState } from "react";
 
 export const SettingsRow = ({ title, description, descriptionStyle = '', isBottomBorder = true, children }) => {
 
-  const h2TagStyles = " text-xl font-medium ";
+  const h2TagStyles = " text-lg md:text-xl font-medium ";
   const pTagStyles = " text-[#7D7878] mt-1 ";
 
   return (
-    <div className={` flex  space-x-20 mb-16 pb-8 ${isBottomBorder ? 'border-b border-[#DDDDDD]' : ''} `}>
-      <div className=" w-[300px] ">
+    <div className={` flex max-md:flex-col max-md:text-sm max-md:space-y-5 md:space-x-20 mb-5 md:mb-16 pb-5 md:pb-8 ${isBottomBorder ? 'border-b border-[#DDDDDD]' : ''} `}>
+      <div className="  md:w-[300px] ">
         <h2 className={h2TagStyles}>{title}</h2>
         <p className={`${pTagStyles} ${descriptionStyle}`}>{description}</p>
       </div>
@@ -20,7 +20,7 @@ export const SettingsRow = ({ title, description, descriptionStyle = '', isBotto
   )
 }
 
-
+// this is the main general settings component(main tab)
 // this is the full data object passed as prop
 function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
@@ -160,7 +160,7 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
         {/* site title input */}
         <div className=" ">
           <div className=" border border-admin-violet-border rounded-sm  py-1 px-4 text-[#434242] ">{data?.primary_domain}</div>
-          <div className=" flex items-center space-x-2 mt-1 ml-3">
+          <div className=" flex items-center space-x-2 mt-1 md:ml-3">
             <span className=" size-2.5 mt-0.5 bg-green-500 rounded-full " />
             <p className="">Domain connected and activated</p>
           </div>
@@ -169,11 +169,11 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
 
       <SettingsRow title="Logo" description="Upload PNG or SVG for better quality">
         <div>
-          <div onClick={() => fileInputRef.current.click()} className="border cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px] w-[300px] relative rounded-sm">
+          <div onClick={() => fileInputRef.current.click()} className="border cursor-pointer overflow-hidden p-1   border-admin-violet-border flex-center h-[100px] w-full md:w-[300px] relative rounded-sm">
             {selectedLogoFile ? (
-              <img src={logoPreview} className="h-full  w-full" alt="Logo Preview" />
+              <img src={logoPreview} className="h-full  w-full object-contain" alt="Logo Preview" />
             ) : settingsData?.logo ? (
-              <img src={settingsData?.logo} className="h-full w-full  " alt="Logo" />
+              <img src={settingsData?.logo} className="h-full w-full object-contain" alt="Logo" />
             ) : (
               <p className=" text-[#A3A3A3] text-sm ">No logo uploaded</p>
             )}
@@ -202,11 +202,11 @@ function GeneralMainSettings({ data, updateLocalData, setIsLoading }) {
           PNG or SVG (512*512px)" descriptionStyle=' w-[200px]' isBottomBorder={false}>
 
         <div>
-          <div onClick={() => faviconFileInputRef.current.click()} className="border w-[100px] cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px]  relative rounded-sm">
+          <div onClick={() => faviconFileInputRef.current.click()} className="border max-md:p-2  md:w-[100px] cursor-pointer overflow-hidden  border-admin-violet-border flex-center h-[100px]  relative rounded-sm">
             {selectedFaviconFile ? (
-              <img src={faviconPreview} className="h-full  w-[100px]" alt="Favicon Preview" />
+              <img src={faviconPreview} className="h-full  md:w-[100px] " alt="Favicon Preview" />
             ) : settingsData?.faviconUrl ? (
-              <img src={settingsData?.faviconUrl} className="h-full w-[100px]  " alt="Favicon" />
+              <img src={settingsData?.faviconUrl} className="h-full md:w-[100px] " alt="Favicon" />
             ) : (
               <p className=" text-[#A3A3A3] text-sm text-center ">No favicon uploaded</p>
             )}

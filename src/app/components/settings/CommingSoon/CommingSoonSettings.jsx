@@ -12,10 +12,10 @@ function CommingSoonSettings({ data, updateLocalData }) {
     const settingsTabs = [
         { name: 'Main' },
         { name: 'Design' },
-        { name: 'Colors'},
+        { name: 'Colors' },
         { name: 'Typography' },
         { name: 'SEO' },
-        { name: 'Custom Codes'},
+        { name: 'Custom Codes' },
     ]
 
     const [selectedTab, setSelectedTab] = useState('Main');
@@ -29,7 +29,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
 
-               //  design settings tab this is common for all site types
+                //  design settings tab this is common for all site types
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             default:
                 return null;
