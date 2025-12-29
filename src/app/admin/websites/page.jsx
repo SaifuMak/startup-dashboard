@@ -68,7 +68,7 @@ function Websites() {
                 <NavBar />
                 {loading ? (
                     <div className=" w-full h-full flex-center ">
-                        <LoaderIcon className='text-xl ' />
+                        <LoaderIcon className=' ' />
                     </div>
                 ) : (
                     <div className="w-full mx-auto p-8 xl:p-10 2xl:p-16">

@@ -3,7 +3,7 @@ import { LuLoaderCircle } from "react-icons/lu";
 
 function LoaderIcon({className}) {
   return (
-    <LuLoaderCircle className={`${className}  text-admin-violet animate-spin`}/>
+    <LuLoaderCircle className={`${className}  text-3xl text-admin-violet animate-spin`}/>
   )
 }
 

@@ -1,41 +1,26 @@
 'use client'
 import { useState, useEffect } from "react"
-import ColorThemeRow from "../Componets/ColorThemeRow"
+import ColorThemeRow from "./Componets/ColorThemeRow"
 import { updateSiteColors } from "@/app/actions/websites"
 import { toast } from "sonner"
 
-function ColorSettings({ data, updateLocalData }) {
-
-    //  the key is the color variables from the db 
-    const THEME_FIELDS = [
-        { key: "primary", label: "Primary", description: "Used for buttons, icons etc" },
-        { key: "btn_text", label: "Button Text", description: "Color for button content" },
-        { key: "header_bg", label: "Header Background", description: "Choose your header background" },
-        { key: "header_text", label: "Header Content", description: "All text content on header" },
-        { key: "hero_text", label: "Hero Text", description: "Used for button text" },
-        { key: "section_bg", label: "Primary Section Background", description: "Background color for sections" },
-        { key: "section_text", label: "Primary Section Text", description: "Primary content color" },
-        { key: "alt_section_bg", label: "Alternate Section Background", description: "Background color for sections" },
-        { key: "alt_section_text", label: "Alternate Section Text", description: "Primary content color" },
-        { key: "heading", label: "Headings", description: "All section headings" },
-        { key: "footer_bg", label: "Footer Background", description: "Background color for footer" },
-        { key: "footer_text", label: "Footer Text", description: "Content color of footer" }
-    ]
+function GeneralColorSettings({ data, updateLocalData, setIsLoading, colorThemes }) {
 
     const [colors, setColors] = useState(null)
     const [isColorChanged, setIsColorChanged] = useState(false)
-
+    const [lastSavedColors, setLastSavedColors] = useState(null);
 
     // normalize the color code to upercase
     const normalizeHex = (hex) => hex.toUpperCase()
 
-
     useEffect(() => {
         if (data?.color_settings) {
             setColors(data.color_settings)
+            setLastSavedColors(data.color_settings);
         }
     }, [data])
 
+    // callback when the color is changed
     const handleColorChange = (theme, fieldKey, color) => {
         const normalizedColor = normalizeHex(color)
 
@@ -56,7 +41,6 @@ function ColorSettings({ data, updateLocalData }) {
         })
     }
 
-
     useEffect(() => {
         if (!colors) return
         updateLocalData({ color_settings: colors })
@@ -67,7 +51,9 @@ function ColorSettings({ data, updateLocalData }) {
         if (!isColorChanged || !colors) return
 
         const timer = setTimeout(async () => {
+
             try {
+                setIsLoading(true)
                 const res = await updateSiteColors(
                     data.primary_domain,
                     colors
@@ -75,12 +61,20 @@ function ColorSettings({ data, updateLocalData }) {
 
                 if (res.success) {
                     toast.success(" Colors saved successfully")
+                    setLastSavedColors(colors);
                     setIsColorChanged(false)
                 } else {
                     toast.success(" Failed to save colors")
                 }
             } catch (err) {
+                // if the api fails revert the change
+                setColors(lastSavedColors);
+                updateLocalData({ color_settings: lastSavedColors });
+                setIsColorChanged(false);
                 toast.success("Something went wrong, Please try again")
+            }
+            finally {
+                setIsLoading(false)
             }
         }, 800)
 
@@ -91,17 +85,17 @@ function ColorSettings({ data, updateLocalData }) {
     if (!colors) return null
 
     return (
-        <div className="w-full">
+        <div className="w-full ">
             {/* Table Header */}
-            <div className="grid grid-cols-3 gap-4 border-b pb-3 mb-4 font-semibold text-lg">
-                <div>Color</div>
-                <div className="text-center">Light</div>
-                <div className="text-center">Dark</div>
+            <div className="grid grid-cols-3 max-md:hidden gap-4 border-b border-slate-200 pb-3 mb-10 font-semibold ">
+                <div>Color Role</div>
+                <div className="text-center">For Light Layout</div>
+                <div className="text-center">For Dark Layout</div>
             </div>
 
             {/* Table Rows */}
             <div className="space-y-4">
-                {THEME_FIELDS.map(field => (
+                {colorThemes.map(field => (
                     <ColorThemeRow
                         key={field.key}
                         label={field.label}
@@ -117,4 +111,4 @@ function ColorSettings({ data, updateLocalData }) {
     )
 }
 
-export default ColorSettings
+export default GeneralColorSettings

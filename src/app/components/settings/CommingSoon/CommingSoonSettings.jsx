@@ -4,6 +4,9 @@ import { useState } from 'react';
 import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
+import GeneralColorSettings from '../GeneralColorSettings';
+import SettingsTabs from '../Componets/SettingsTabs';
+import { COMMING_SOON_COLOR_THEME_FIELDS } from '@/app/data/ColorThemes';
 
 // this deals with comming soon site settings
 function CommingSoonSettings({ data, updateLocalData }) {
@@ -28,33 +31,31 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 // main settings tab this is common for all site types
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
-
                 //  design settings tab this is common for all site types
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
+            case 'Colors':
+                return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={COMMING_SOON_COLOR_THEME_FIELDS} />;
             default:
                 return null;
         }
     };
 
-
     return (
-        <div className=" relative w-full min-h-[70vh]  rounded-lg bg-white   py-10">
-            {/* tabs for different settings sections */}
-            <div className=" border rounded-sm border-[#DADADA] mx-20  flex items-center  ">
-                {settingsTabs.map((tab, index) => (
-                    <div key={index} className={` w-full  p-2  text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
-                        {tab.name}
-                    </div>
-                ))}
-            </div>
+        <div className=" relative w-full min-h-[70vh]  rounded-lg bg-white py-10">
 
-            <div className=" mt-16 mx-20 ">
+            <SettingsTabs
+                tabs={settingsTabs}
+                selectedTab={selectedTab}
+                onChange={setSelectedTab}
+            />
+
+            <div className=" mt-16 xl:mx-20 mx-5 ">
                 {/* conditional rendering of tab content based on selected tab this prevents the slate state  */}
                 {renderTabContent()}
             </div>
 
-            {isLoading && <div className="  absolute inset-0 flex-center bg-slate-50/10 ">
-                <LoaderIcon className='text-admin-violet z-50 animate-spin text-3xl' />
+            {isLoading && <div className=" fixed inset-0 flex-center  bg-slate-400/10 ">
+                <LoaderIcon className='text-admin-violet z-50 animate-spin md:text-3xl text-4xl' />
             </div>}
         </div>
     )

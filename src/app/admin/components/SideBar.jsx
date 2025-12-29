@@ -38,7 +38,7 @@ export default function SideBar() {
 
     return (
         <div className={` max-md:fixed max-md:z-50 max-md:inset-0 ${isOpen ? 'bg-black/50  ' : ''} transition-colors duration-700  pointer-events-none`} >
-            <div className={` md:w-84 md:sticky md:top-0 w-full ${isOpen || !isMobile ? ' translate-x-0 pointer-events-auto' : '-translate-x-200 sm:-translate-x-500'} bg-white duration-1000 ease-in-out transition-transform  font-medium  text-[#17181A] h-screen `}>
+            <div className={` md:w-72 lg:w-84 md:sticky md:top-0 w-full ${isOpen || !isMobile ? ' translate-x-0 pointer-events-auto' : '-translate-x-200 sm:-translate-x-500'} bg-white duration-1000 ease-in-out transition-transform  font-medium  text-[#17181A] h-screen `}>
                 <div className=" min-h-[80px] px-3 flex items-center justify-between border-b border-[#F1F5F7]">
                     {/* Logo */}
                     <div className="relative   bg-white lg:w-[200px] w-[150px]  aspect-[3/1] xl:mx-auto ">
