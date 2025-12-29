@@ -88,7 +88,7 @@ function GeneralColorSettings({ data, updateLocalData, setIsLoading, colorThemes
         <div className="w-full ">
             {/* Table Header */}
             <div className="grid grid-cols-3 max-md:hidden gap-4 border-b border-slate-200 pb-3 mb-10 font-semibold ">
-                <div>Color Role</div>
+                <div></div>
                 <div className="text-center">For Light Layout</div>
                 <div className="text-center">For Dark Layout</div>
             </div>
