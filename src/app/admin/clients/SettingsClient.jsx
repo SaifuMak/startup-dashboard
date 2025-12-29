@@ -19,10 +19,14 @@ export default function SettingsClient({ websiteUrl }) {
         setWebsiteData(prev => ({ ...prev, ...updates }));
     };
 
+    
+
+
     useEffect(() => {
         const fetchData = async () => {
             // fetch site details using the provided websiteUrl
             const { success, data } = await getSiteDetails(websiteUrl);
+            console.log(data)
             if (success) {
                 setWebsiteData(data);
                 setIsLoading(false);
@@ -38,7 +42,7 @@ export default function SettingsClient({ websiteUrl }) {
     return (
         <div className=" flex ">
             <SideBar />
-            <div className=" w-full  min-h-screen flex flex-col  bg-admin-light-background ">
+            <div className=" w-full  min-h-screen flex flex-col   bg-admin-light-background ">
                 <NavBar />
 
                 <div className="  md:w-11/12 2xl:w-10/12 p-5  md:p-8 xl:p-10 2xl:p-16">

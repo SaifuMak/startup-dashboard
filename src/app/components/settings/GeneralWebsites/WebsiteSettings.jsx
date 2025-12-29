@@ -5,13 +5,15 @@ import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
 
+import ColorSettings from './ColorSettings';
+
 // this deals with general website settings
 function WebsiteSettings({ data,updateLocalData }) {
 
     const settingsTabs = [
         { name: 'Main', component: <GeneralMainSettings data={data} updateLocalData={updateLocalData} /> },
         { name: 'Design', component: <GeneralMainDesign data={data} updateLocalData={updateLocalData} /> },
-        { name: 'Colors', component: null },
+        { name: 'Colors', component: <ColorSettings data={data} updateLocalData={updateLocalData} /> },
         { name: 'Typography', component: null },
         { name: 'SEO', component: null },
         { name: 'Custom Codes', component: null },
@@ -29,6 +31,8 @@ function WebsiteSettings({ data,updateLocalData }) {
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
+            case 'Colors':
+                return <ColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             default:
                 return null;
         }
@@ -36,10 +40,10 @@ function WebsiteSettings({ data,updateLocalData }) {
 
 
     return (
-        <div className=" relative w-full min-h-[70vh] bg-white  rounded-lg  py-5  md:py-10">
+        <div className=" relative w-full min-h-[70vh]  bg-white rounded-lg  py-5  md:py-10">
            
             {/* desktop items  */}
-            <div className=" border max-lg:hidden rounded-sm border-[#DADADA] mx-5 md:mx-20  flex  items-center  ">
+            <div className=" border max-lg:hidden rounded-sm border-[#DADADA] mx-5 lg:mx-10 xl:mx-20  flex  items-center  ">
                 {settingsTabs.map((tab, index) => (
                     <div key={index} className={` w-full  md:p-2 p-1 max-md:text-xs  md:text-nowrap max-xl:text-sm  flex-1 text-center text-admin-grey-600 font-medium   cursor-pointer ${index === settingsTabs.length - 1 ? '' : 'border-r'} border-[#DADADA]  transition-colors duration-500 ${selectedTab === tab.name ? 'text-white bg-admin-violet' : ' text-[#434343]'}`} onClick={() => setSelectedTab(tab.name)}>
                         {tab.name}
@@ -56,7 +60,7 @@ function WebsiteSettings({ data,updateLocalData }) {
                 ))}
             </div>
 
-            <div className=" mt-16 mx-5 md:mx-20 ">
+            <div className=" mt-16 mx-5 lg:mx-10 xl:mx-20 ">
                 {renderTabContent()}
             </div>
 

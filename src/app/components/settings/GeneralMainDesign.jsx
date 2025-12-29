@@ -94,7 +94,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
             </div>
 
             {/* templates section */}
-            <div className="grid lg:grid-cols-3 mt-10 w-full gap-10">
+            <div className="grid lg:grid-cols-2 2xl:grid-cols-3 mt-10 w-full gap-10">
                 {templates.map((template, index) => {
 
                     const isHoveredOrClicked = ClickedOrHoveredTemplateKey === template.key;

@@ -106,3 +106,18 @@ export const uploadFavicon = async (websiteUrl, formData) => {
     }
 }
 
+
+export const updateSiteColors = async (websiteUrl, colors) => {
+    try {
+        const response = await AXIOS_INSTANCE.patch(`v1/update-website-colors`, {
+            host: websiteUrl,
+            color_settings: colors
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
+    }
+}
