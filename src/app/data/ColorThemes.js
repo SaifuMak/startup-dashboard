@@ -5,7 +5,7 @@ export const WEBSITE_COLOR_THEME_FIELDS = [
     { key: "btn_text", label: "Button Text", description: "Color for button content" },
     { key: "header_bg", label: "Header Background", description: "Choose your header background" },
     { key: "header_text", label: "Header Content", description: "All text content on header" },
-    { key: "hero_text", label: "Hero Text", description: "Used for button text" },
+    { key: "hero_text", label: "Hero Text", description: "Used for hero title and description text" },
     { key: "section_bg", label: "Primary Section Background", description: "Background color for sections" },
     { key: "section_text", label: "Primary Section Text", description: "Primary content color" },
     { key: "alt_section_bg", label: "Alternate Section Background", description: "Background color for sections" },

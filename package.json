@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
+    "@simonwep/pickr": "^1.9.1",
     "@tailwindcss/postcss": "^4.1.17",
     "axios": "^1.13.2",
     "gsap": "^3.13.0",

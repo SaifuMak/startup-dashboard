@@ -76,7 +76,7 @@ function GeneralColorSettings({ data, updateLocalData, setIsLoading, colorThemes
             finally {
                 setIsLoading(false)
             }
-        }, 800)
+        }, 200)
 
         return () => clearInterval(timer)
 

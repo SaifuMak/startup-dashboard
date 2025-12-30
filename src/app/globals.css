@@ -15,3 +15,9 @@
    --color-light-secondary: #99B2C6;
    --color-admin-light-background: #F9FBFC;
 }
+
+
+/* Hide Pickr's internal button */
+.pickr .pcr-button {
+  display: none !important;
+}
