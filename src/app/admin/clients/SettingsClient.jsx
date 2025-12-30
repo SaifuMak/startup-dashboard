@@ -8,9 +8,12 @@ import WebsiteSettings from "@/app/components/settings/GeneralWebsites/WebsiteSe
 import { getSiteDetails } from "@/app/actions/websites";
 import { useEffect, useState } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { useRouter } from 'next/navigation';
 
 // setting client main component
 export default function SettingsClient({ websiteUrl }) {
+
+    const router = useRouter();
 
     const [websiteData, setWebsiteData] = useState(null);
     const [isLoading, setIsLoading] = useState(true)
@@ -18,9 +21,6 @@ export default function SettingsClient({ websiteUrl }) {
     const updateLocalData = (updates) => {
         setWebsiteData(prev => ({ ...prev, ...updates }));
     };
-
-    
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,7 +30,7 @@ export default function SettingsClient({ websiteUrl }) {
             if (success) {
                 setWebsiteData(data);
                 setIsLoading(false);
-                console.log(data);
+                // console.log(data);
             }
         };
 
@@ -68,7 +68,11 @@ export default function SettingsClient({ websiteUrl }) {
 
                             </div>
                         </div>
-                        <button className=" lg:px-8 px-5 py-1.5 bg-admin-violet lg:text-sm text-xs text-nowrap font-medium text-white rounded-sm md:rounded-xl">GO BACK</button>
+
+                        <button
+                            onClick={() => router.push('/admin/websites')}
+                            className=" lg:px-8 px-5 py-1.5 bg-admin-violet cursor-pointer lg:text-sm text-xs text-nowrap font-medium text-white rounded-sm md:rounded-xl">GO BACK</button>
+
                     </div>
 
 
