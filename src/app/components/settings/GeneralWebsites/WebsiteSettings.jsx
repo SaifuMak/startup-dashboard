@@ -6,7 +6,10 @@ import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
 import SettingsTabs from '../Componets/SettingsTabs';
 import GeneralColorSettings from '../GeneralColorSettings';
+import GeneralTypographySettings from '../GeneralTypographySettings';
+
 import { WEBSITE_COLOR_THEME_FIELDS } from '@/app/data/ColorThemes';
+import { WEBSITE_TYPOGRAPHY_FIELDS } from '@/app/data/Typography';
 
 // this deals with general website settings
 function WebsiteSettings({ data, updateLocalData }) {
@@ -33,6 +36,9 @@ function WebsiteSettings({ data, updateLocalData }) {
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             case 'Colors':
                 return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={WEBSITE_COLOR_THEME_FIELDS} />;
+            case 'Typography':
+                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographies={WEBSITE_TYPOGRAPHY_FIELDS} />;
+
             default:
                 return null;
         }
@@ -42,7 +48,7 @@ function WebsiteSettings({ data, updateLocalData }) {
     return (
         <div className=" relative w-full min-h-[70vh]  bg-white rounded-lg  py-5  md:py-10">
 
-             <SettingsTabs
+            <SettingsTabs
                 tabs={settingsTabs}
                 selectedTab={selectedTab}
                 onChange={setSelectedTab}

@@ -5,8 +5,10 @@ import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
 import GeneralColorSettings from '../GeneralColorSettings';
+import GeneralTypographySettings from '../GeneralTypographySettings';
 import SettingsTabs from '../Componets/SettingsTabs';
 import { COMMING_SOON_COLOR_THEME_FIELDS } from '@/app/data/ColorThemes';
+import { WEBSITE_TYPOGRAPHY_FIELDS } from '@/app/data/Typography';
 
 // this deals with comming soon site settings
 function CommingSoonSettings({ data, updateLocalData }) {
@@ -35,6 +37,10 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             case 'Colors':
                 return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={COMMING_SOON_COLOR_THEME_FIELDS} />;
+
+             case 'Typography':
+                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographies={WEBSITE_TYPOGRAPHY_FIELDS} />;
+                
             default:
                 return null;
         }
