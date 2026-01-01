@@ -9,6 +9,7 @@ import { getSiteDetails } from "@/app/actions/websites";
 import { useEffect, useState } from "react";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { useRouter } from 'next/navigation';
+import { poppins } from "@/app/fonts";
 
 // setting client main component
 export default function SettingsClient({ websiteUrl }) {
@@ -40,7 +41,7 @@ export default function SettingsClient({ websiteUrl }) {
 
 
     return (
-        <div className=" flex ">
+        <div className={` flex  `  }>
             <SideBar />
             <div className=" w-full  min-h-screen flex flex-col   bg-admin-light-background ">
                 <NavBar />

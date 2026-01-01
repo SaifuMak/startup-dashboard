@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { RiArrowDropDownFill } from "react-icons/ri"
 import useClickOutside from '@/app/hooks/useClickOutside'
 import { FONT_WEIGHT_MAP, FONT_WEIGHT_LABELS } from '@/app/data/fontWeightRegistry'
+import DropDownIcon from './DropDownIcon'
+
 
 function FontWeightDropdown({
     value,
@@ -16,27 +18,25 @@ function FontWeightDropdown({
     })
 
     return (
-        <div ref={ref} className="relative w-42 text-sm">
+        <div ref={ref} className="relative w-40 text-sm">
             {/* Button */}
             <button
                 type="button"
                 onClick={() => setOpen(prev => !prev)}
-                className="w-full px-3 py-2 border border-[#C7BFFF] rounded-md bg-white flex items-center justify-between"
+                className="w-full px-3 py-2 border border-admin-violet-border rounded-md  bg-admin-violet/5 flex items-center justify-between"
             >
                 <span className={value ? FONT_WEIGHT_MAP[value] : ''}>
                     {value ? FONT_WEIGHT_LABELS[value] : 'Select weight'}
                 </span>
 
-                <RiArrowDropDownFill
-                    className={`text-xl transition-transform duration-300 ${open ? 'rotate-180' : ''
-                        }`}
-                />
+                <DropDownIcon open={open} />
+
             </button>
 
             {/* Dropdown */}
             <div
                 className={`
-          absolute z-50 mt-1 w-full bg-white text-sm border border-[#C7BFFF]
+          absolute z-50 mt-1 w-full bg-white text-sm border border-admin-violet-border
           rounded-md shadow-md overflow-hidden
           transition-all duration-300 ease-out
             ${open

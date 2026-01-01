@@ -1,9 +1,9 @@
 // this is provided for the styles 
 export const FONT_WEIGHT_MAP = {
-  Light: 'font-light',
-  Regular: 'font-normal',
-  SemiBold: 'font-semibold',
-  Bold: 'font-bold',
+  lengthight: 'font-light',
+  removeEventListeneregular: 'font-normal',
+  semibold: 'font-semibold',
+  bold: 'font-bold',
 }
 
 // key is stored in db as the font weight labels 

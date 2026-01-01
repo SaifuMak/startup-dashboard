@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { RiArrowDropDownFill } from "react-icons/ri"
 import useClickOutside from '@/app/hooks/useClickOutside'
+import DropDownIcon from './DropDownIcon'
 
 function FontSourceDropdown({
   value,
@@ -17,20 +18,17 @@ function FontSourceDropdown({
       <button
         type="button"
         onClick={() => setOpen(prev => !prev)}
-        className="w-full px-3 py-2 border border-[#C7BFFF] rounded-md bg-white flex items-center justify-between capitalize"
+        className="w-full px-3 py-2 border border-admin-violet-border rounded-md bg-white flex items-center justify-between capitalize"
       >
         <span>{value}</span>
-        <RiArrowDropDownFill
-          className={`text-xl transition-transform duration-300 ${
-            open ? 'rotate-180' : ''
-          }`}
-        />
+        <DropDownIcon open={open} />
+
       </button>
 
       {/* Dropdown */}
       <div
         className={`
-          absolute z-50 mt-1 w-full bg-white border border-[#C7BFFF]
+          absolute z-50 mt-1 w-full bg-white border border-admin-violet-border
           rounded-md shadow-md overflow-hidden
           transition-all duration-300 ease-out transform
           ${open

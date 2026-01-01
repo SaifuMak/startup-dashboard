@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { RiArrowDropDownFill } from "react-icons/ri"
 import useClickOutside from '@/app/hooks/useClickOutside'
+import DropDownIcon from './DropDownIcon'
+
 
 function FontSizeDropdown({
     value,
@@ -15,27 +17,26 @@ function FontSizeDropdown({
     })
 
     return (
-        <div ref={ref} className="relative w-16 text-sm">
+        <div ref={ref} className="relative min-w-16 text-sm">
             {/* Button */}
             <button
                 type="button"
                 onClick={() => setOpen(prev => !prev)}
-                className="w-full px-3 py-2 border border-[#C7BFFF] rounded-md bg-white flex items-center justify-between"
+                className="w-full px-3 py-2 border space-x-1 border-admin-violet-border rounded-md bg-admin-violet/5  flex items-center justify-between"
             >
-                <span>
+                <img src="/image/text-icon.svg" alt="" className="size-6 object-contain " />
+                <span className='mr-2'>
                     {value ? value?.toUpperCase() : 'Select size'}
                 </span>
 
-                <RiArrowDropDownFill
-                    className={`text-xl transition-transform duration-300 ${open ? 'rotate-180' : ''
-                        }`}
-                />
+                <DropDownIcon open={open} />
+
             </button>
 
             {/* Dropdown */}
             <div
                 className={`
-                    absolute z-50 mt-1 w-full bg-white text-sm border border-[#C7BFFF]
+                    absolute z-50 mt-1 w-full bg-white text-sm border border-admin-violet-border
                     rounded-md shadow-md overflow-hidden
                     transition-all duration-300 ease-out
                     ${open

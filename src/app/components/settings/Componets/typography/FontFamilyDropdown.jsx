@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { RiArrowDropDownFill } from "react-icons/ri"
 import useClickOutside from '@/app/hooks/useClickOutside'
 import { FONT_CLASS_MAP } from '@/app/data/fontRegistry'
+import DropDownIcon from './DropDownIcon'
 
 function FontFamilyDropdown({
     value,
@@ -29,24 +30,21 @@ function FontFamilyDropdown({
             <button
                 type="button"
                 onClick={() => setOpen(prev => !prev)}
-                className="w-full px-3 py-2 border border-[#C7BFFF] rounded-md bg-white flex items-center justify-between"
+                className="w-full px-3 py-2 border  border-admin-violet-border rounded-md bg-white flex items-center justify-between"
             >
                 <span className={`${value ? FONT_CLASS_MAP[value] : ''}`}>
                     {value || 'Select font'}
                 </span>
+                <DropDownIcon open={open} />
 
-                <RiArrowDropDownFill
-                    className={`text-xl transition-transform duration-300 ${open ? 'rotate-180' : ''
-                        }`}
-                />
             </button>
 
             {/* Dropdown */}
 
             <div
                 className={`
-                    absolute z-50 mt-1 w-full bg-white text-sm border border-[#C7BFFF]
-                    rounded-md shadow-md  overflow-y-auto
+                    absolute z-50 mt-1 w-full bg-white text-sm border  rounded-md   border-admin-violet-border
+                  shadow-md  overflow-y-auto
                     transition-all duration-300 ease-out
                     ${open
                         ? 'max-h-[200px] opacity-100 translate-y-0'

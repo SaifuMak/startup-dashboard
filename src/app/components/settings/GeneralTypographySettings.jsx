@@ -1,7 +1,6 @@
 
 'use client'
 import { useState, useEffect } from 'react'
-import { AVAILABLE_FONTS } from '@/app/data/Typography';
 import TypographyRow from './Componets/typography/TypographyRow';
 
 function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoading, typographyFields }) {
