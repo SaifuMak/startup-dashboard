@@ -23,6 +23,8 @@ function WebsiteSettings({ data, updateLocalData }) {
         { name: 'Custom Codes' },
     ]
 
+    
+
     const [selectedTab, setSelectedTab] = useState('Main');
 
     const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +39,7 @@ function WebsiteSettings({ data, updateLocalData }) {
             case 'Colors':
                 return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={WEBSITE_COLOR_THEME_FIELDS} />;
             case 'Typography':
-                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographies={WEBSITE_TYPOGRAPHY_FIELDS} />;
+                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographyFields={WEBSITE_TYPOGRAPHY_FIELDS} />;
 
             default:
                 return null;

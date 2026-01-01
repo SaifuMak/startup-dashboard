@@ -1,17 +1,15 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'sonner';
+import {
+  poppins,
+  inter,
+  montserrat,
+  roboto,
+  openSans,
+  lato
+} from './fonts'
 
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata = {
   title: "Startup-site",
@@ -21,8 +19,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-          <Toaster position="bottom-left" richColors />
+      <body
+        className={`
+          ${poppins.className}
+          ${inter.className}
+          ${montserrat.className}
+          ${roboto.className}
+          ${openSans.className}
+          ${lato.className}
+        `}
+      >
+        <Toaster position="bottom-left" richColors />
 
         {children}
       </body>

@@ -39,7 +39,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={COMMING_SOON_COLOR_THEME_FIELDS} />;
 
              case 'Typography':
-                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographies={WEBSITE_TYPOGRAPHY_FIELDS} />;
+                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographyFields={WEBSITE_TYPOGRAPHY_FIELDS} />;
                 
             default:
                 return null;
