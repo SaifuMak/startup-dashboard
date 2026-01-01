@@ -2,6 +2,9 @@ import React from 'react'
 import FontFamilyDropdown from './FontFamilyDropdown'
 import FontSourceDropdown from './FontSourceDropdown'
 import { AVAILABLE_FONTS } from '@/app/data/Typography'
+import FontWeightDropdown from './FontWeightDropdown'
+import FontSizeDropdown from './FontSizeDropdown'
+import LineHeightDropdown from './LineHeightDropdown'
 
 function TypographyRow({
     label,
@@ -18,7 +21,7 @@ function TypographyRow({
                 <div className="text-sm md:mt-1  text-[#7D7878]">{description}</div>
             </div>
 
-            <div className="flex md:justify-center">
+            <div className="flex ">
                 {type === 'font_family' ? (
                     <FontFamilyDropdown
                         value={value.font_family}
@@ -27,21 +30,37 @@ function TypographyRow({
                     // onChange={(font) => onChange("font_family", font)}
                     />
                 ) : (
-                    <>
-                        <FontSourceDropdown
-                            value={value.font_source}
-                            options={["primary", "secondary", "custom"]}
-                        // onChange={(source) => onChange("font_source", source)}
-                        />
-
-                        {value.font_source === "custom" && (
-                            <FontFamilyDropdown
-                                value={value.font_family}
-                                options={AVAILABLE_FONTS}
-                                searchable
-                            // onChange={(font) => onChange("font_family", font)}
+                    <div className=" flex flex-col  gap-5">
+                        <div className="">
+                            <FontSourceDropdown
+                                value={value.font_source}
+                                options={["primary", "secondary", "custom"]}
+                            // onChange={(source) => onChange("font_source", source)}
                             />
-                        )}</>
+                        </div>
+                        <div className="  flex space-x-7 ">
+                            {value.font_source === "custom" && (
+                                <FontFamilyDropdown
+                                    value={value.font_family}
+                                    options={AVAILABLE_FONTS}
+                                    searchable
+                                // onChange={(font) => onChange("font_family", font)}
+                                />
+                            )}
+                            <FontWeightDropdown
+                                value={value.font_weight}
+                                options={['light', 'regular', 'semibold', 'bold']}
+                            />
+
+                            <FontSizeDropdown
+                                value={value.text_transform}
+                                options={['s', 'm', 'l']}
+                            />
+                            <LineHeightDropdown
+                                value={value.line_height}
+                                options={['1', '1.2', '1.4', '1.6', '1.8']} />
+                        </div>
+                    </div>
                 )}
 
             </div>

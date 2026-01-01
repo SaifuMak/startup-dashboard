@@ -27,6 +27,10 @@ function CommingSoonSettings({ data, updateLocalData }) {
 
     const [isLoading, setIsLoading] = useState(false)
 
+    // keeping the changed actions in parent 
+    const [isColorChanged, setIsColorChanged] = useState(false)
+
+
     const renderTabContent = () => {
         switch (selectedTab) {
             case 'Main':
@@ -36,11 +40,17 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 //  design settings tab this is common for all site types
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             case 'Colors':
-                return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={COMMING_SOON_COLOR_THEME_FIELDS} />;
+                return <GeneralColorSettings data={data}
+                    updateLocalData={updateLocalData}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                    colorThemes={COMMING_SOON_COLOR_THEME_FIELDS}
+                    isColorChanged={isColorChanged}
+                    setIsColorChanged={setIsColorChanged} />;
 
-             case 'Typography':
+            case 'Typography':
                 return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographyFields={WEBSITE_TYPOGRAPHY_FIELDS} />;
-                
+
             default:
                 return null;
         }

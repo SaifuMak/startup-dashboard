@@ -72,7 +72,6 @@ export default function SettingsClient({ websiteUrl }) {
                         <button
                             onClick={() => router.push('/admin/websites')}
                             className=" lg:px-8 px-5 py-1.5 bg-admin-violet cursor-pointer lg:text-sm text-xs text-nowrap font-medium text-white rounded-sm md:rounded-xl">GO BACK</button>
-
                     </div>
 
 

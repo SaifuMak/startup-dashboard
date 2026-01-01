@@ -17,6 +17,10 @@ export default function ColorThemePicker({ label, color, setColor }) {
       theme: "classic",
       default: color,
       useAsButton: true, //  To hide the pickr button
+      i18n: {
+        'btn:save': 'Choose',   // ✅ correct key
+        'btn:cancel': 'Cancel'
+      },
 
       components: {
         preview: true,

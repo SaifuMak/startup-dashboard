@@ -23,9 +23,11 @@ function WebsiteSettings({ data, updateLocalData }) {
         { name: 'Custom Codes' },
     ]
 
-    
-
     const [selectedTab, setSelectedTab] = useState('Main');
+
+    // keeping the changed actions in parent 
+    const [isColorChanged, setIsColorChanged] = useState(false)
+
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -37,7 +39,13 @@ function WebsiteSettings({ data, updateLocalData }) {
             case 'Design':
                 return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
             case 'Colors':
-                return <GeneralColorSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} colorThemes={WEBSITE_COLOR_THEME_FIELDS} />;
+                return <GeneralColorSettings data={data}
+                    updateLocalData={updateLocalData}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                    colorThemes={WEBSITE_COLOR_THEME_FIELDS}
+                    isColorChanged={isColorChanged}
+                    setIsColorChanged={setIsColorChanged} />;
             case 'Typography':
                 return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographyFields={WEBSITE_TYPOGRAPHY_FIELDS} />;
 
