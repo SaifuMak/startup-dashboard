@@ -27,6 +27,7 @@ function WebsiteSettings({ data, updateLocalData }) {
 
     // keeping the changed actions in parent 
     const [isColorChanged, setIsColorChanged] = useState(false)
+    const [isTypographyChanged, setIsTypographyChanged] = useState(false)
 
 
     const [isLoading, setIsLoading] = useState(false)
@@ -47,7 +48,15 @@ function WebsiteSettings({ data, updateLocalData }) {
                     isColorChanged={isColorChanged}
                     setIsColorChanged={setIsColorChanged} />;
             case 'Typography':
-                return <GeneralTypographySettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} typographyFields={WEBSITE_TYPOGRAPHY_FIELDS} />;
+                return <GeneralTypographySettings
+                    data={data}
+                    updateLocalData={updateLocalData}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                    typographyFields={WEBSITE_TYPOGRAPHY_FIELDS}
+                    isTypographyChanged={isTypographyChanged}
+                    setIsTypographyChanged={setIsTypographyChanged}
+                />;
 
             default:
                 return null;

@@ -16,6 +16,7 @@ function FontSizeDropdown({
         setOpen(false)
     })
 
+
     return (
         <div ref={ref} className="relative h-fit w-20 lg:min-w-16 text-sm">
             {/* Button */}
@@ -33,6 +34,7 @@ function FontSizeDropdown({
 
             </button>
 
+
             {/* Dropdown */}
             <div
                 className={`
@@ -49,8 +51,8 @@ function FontSizeDropdown({
                     <div
                         key={size}
                         onClick={() => {
-                              if (value !== size){onChange?.(size)}
-                          
+                            if (value !== size) { onChange?.(size) }
+
                             setOpen(false)
                         }}
                         className="px-3 py-2 cursor-pointer hover:bg-[#F2F0FF]"

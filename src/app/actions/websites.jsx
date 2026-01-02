@@ -121,3 +121,21 @@ export const updateSiteColors = async (websiteUrl, colors) => {
         };
     }
 }
+
+export const updateSiteTypography = async (websiteUrl, typography) => {
+    try {
+        const response = await AXIOS_INSTANCE.patch(`v1/update-website-typography`, {
+            host: websiteUrl,
+            typography_settings: typography
+        });
+        return { success: true, data: response.data };
+    } catch (error) {
+        return {
+            success: false,
+            error: error.response?.data || "Something went wrong",
+        };
+    }
+}
+
+
+updateSiteTypography

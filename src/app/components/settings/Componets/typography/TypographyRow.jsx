@@ -54,7 +54,7 @@ function TypographyRow({
                             )}
                         </div>
 
-                        <div className="  flex max-lg:flex-col max-lg:space-y-5 lg:space-x-7 ">
+                        <div className="flex max-lg:flex-col max-lg:space-y-5 lg:space-x-7 ">
 
                             <FontWeightDropdown
                                 value={value.font_weight}

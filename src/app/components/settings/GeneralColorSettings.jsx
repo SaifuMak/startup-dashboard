@@ -67,14 +67,10 @@ function GeneralColorSettings({ data, updateLocalData, setIsLoading, colorThemes
                 toast.success(" Colors saved successfully")
                 setIsColorChanged(false)
             } else {
-                toast.success(" Failed to save colors")
+                toast.error(" Failed to save colors")
             }
         } catch (err) {
-            // if the api fails revert the change
-            // setColors(lastSavedColors);
-            // updateLocalData({ color_settings: lastSavedColors });
-            setIsColorChanged(false);
-            toast.success("Something went wrong, Please try again")
+            toast.error("Something went wrong, Please try again")
         }
         finally {
             setIsLoading(false)

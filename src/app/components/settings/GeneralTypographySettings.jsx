@@ -2,8 +2,12 @@
 'use client'
 import { useState, useEffect } from 'react'
 import TypographyRow from './Componets/typography/TypographyRow';
+import { updateSiteTypography } from '@/app/actions/websites';
+import UnsavedChangesBar from './UnsavedChangesBar';
+import { toast } from "sonner"
 
-function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoading, typographyFields }) {
+
+function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoading, typographyFields, isTypographyChanged, setIsTypographyChanged }) {
 
   const [localTypographySettings, setLocalTypographySettings] = useState(null);
 
@@ -13,7 +17,6 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
       setLocalTypographySettings(data.typography_settings);
     }
   }, [data]);
-
 
 
   const handleTypographyChange = (sectionKey, fieldKey, value) => {
@@ -28,16 +31,44 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
 
       return updated
     })
+    setIsTypographyChanged(true)
   }
 
   //  update parent
   useEffect(() => {
     if (!localTypographySettings) return
-    console.log(localTypographySettings)
-    updateLocalData({
-      typography_settings: localTypographySettings,
-    })
+
+    updateLocalData({ typography_settings: localTypographySettings })
   }, [localTypographySettings])
+
+
+
+  const handleSaveTypography = async () => {
+    if (!localTypographySettings || !isTypographyChanged) return
+
+    try {
+      setIsLoading(true)
+      const res = await updateSiteTypography(
+        data.primary_domain,
+        localTypographySettings
+      )
+
+      if (res.success) {
+        toast.success("Changes saved successfully")
+        setIsTypographyChanged(false)
+      } else {
+        toast.error(" Failed to save changes")
+      }
+    } catch (err) {
+      toast.error("Something went wrong, Please try again")
+    }
+    finally {
+      setIsLoading(false)
+    }
+  }
+
+
+
 
   if (!localTypographySettings) return null;
 
@@ -46,6 +77,11 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
 
   return (
     <div className="w-full">
+      <UnsavedChangesBar
+        show={isTypographyChanged}
+        bottom
+        onSave={handleSaveTypography}
+      />
 
       {/* Table Rows */}
       <div className="space-y-4">
@@ -63,6 +99,12 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
           />
         ))}
       </div>
+       <UnsavedChangesBar
+        show={isTypographyChanged}
+        top
+        onSave={handleSaveTypography}
+      />
+
     </div>
   )
 
