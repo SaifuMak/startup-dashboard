@@ -1,9 +1,5 @@
 import "./globals.css";
 import { Toaster } from 'sonner';
-// import {
-//   inter,
-// } from './fonts'
-
 
 export const metadata = {
   title: "Startup-site",

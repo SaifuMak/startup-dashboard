@@ -24,7 +24,7 @@ function TypographyRow({
                 <div className="text-sm md:mt-1  text-[#7D7878]">{description}</div>
             </div>
 
-            <div className="  grid col-span-2  ">
+            <div className="grid col-span-2  ">
                 {type === 'font_family' ? (
                     <FontFamilyDropdown
                         value={value.font_family}
@@ -64,7 +64,7 @@ function TypographyRow({
 
                             <FontSizeDropdown
                                 value={value.text_transform}
-                                options={['s', 'm', 'l']}
+                                options={['XS', 'S', 'M', 'L', 'XL', 'XXL', '3XL', '4XL', '5XL']}
                                 onChange={(val) => onChange(sectionKey, "text_transform", val)}
                             />
                             <LineHeightDropdown
