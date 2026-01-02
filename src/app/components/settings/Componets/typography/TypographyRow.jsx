@@ -16,6 +16,7 @@ function TypographyRow({
     secondaryFont,
     onChange
 }) {
+
     return (
         <div className="grid md:grid-cols-3 gap-6  xl:gap-12  border-b border-[#DDDDDD]  pb-5 md:mb-7 lg:mb-12">
             {/* Name */}
@@ -69,7 +70,7 @@ function TypographyRow({
                             />
                             <LineHeightDropdown
                                 value={value.line_height}
-                                options={['1', '1.2', '1.4', '1.6', '1.8']}
+                                options={['1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.8', '2']}
                                 onChange={(val) => onChange(sectionKey, "line_height", val)} />
                         </div>
                     </div>
