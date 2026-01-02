@@ -16,14 +16,14 @@ function LineHeightDropdown({
     })
 
     return (
-        <div ref={ref} className="relative min-w-22 text-sm">
+        <div ref={ref} className="relative w-28   min-w-22 text-sm ">
             {/* Button */}
             <button
                 type="button"
                 onClick={() => setOpen(prev => !prev)}
                 className="w-full px-3 py-2 border border-admin-violet-border rounded-md bg-admin-violet/5 flex items-center justify-between"
             >
-                <img src="/image/line-height.svg" alt="" className="size-6 object-contain " />
+                <img src="/image/line-height.svg" alt="" className="xl:size-5 size-5 object-contain " />
 
                 <span className='mr-2'>
                     {`${value} em` || 'Select line height'}
@@ -49,7 +49,7 @@ function LineHeightDropdown({
                     <div
                         key={lineHeight}
                         onClick={() => {
-                            onChange?.(lineHeight)
+                            if (value !== lineHeight){ onChange?.(lineHeight) }
                             setOpen(false)
                         }}
                         className="px-3 py-2 cursor-pointer hover:bg-[#F2F0FF]"

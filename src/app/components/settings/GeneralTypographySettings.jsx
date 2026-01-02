@@ -14,11 +14,35 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
     }
   }, [data]);
 
+
+
+  const handleTypographyChange = (sectionKey, fieldKey, value) => {
+    setLocalTypographySettings(prev => {
+      const updated = {
+        ...prev,
+        [sectionKey]: {
+          ...prev[sectionKey],
+          [fieldKey]: value,
+        },
+      }
+
+      return updated
+    })
+  }
+
+  //  update parent
+  useEffect(() => {
+    if (!localTypographySettings) return
+    console.log(localTypographySettings)
+    updateLocalData({
+      typography_settings: localTypographySettings,
+    })
+  }, [localTypographySettings])
+
   if (!localTypographySettings) return null;
 
 
-  const handleColorChange = (fieldKey, field, value) => {
-  }
+
 
   return (
     <div className="w-full">
@@ -28,11 +52,14 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
         {typographyFields.map(field => (
           <TypographyRow
             key={field.key}
+            sectionKey={field.key}
             label={field.label}
             description={field.description}
             type={field.type}
             value={localTypographySettings[field.key]}
-            onChange={handleColorChange}
+            primaryFont={localTypographySettings.primary_font}
+            secondaryFont={localTypographySettings.secondary_font}
+            onChange={handleTypographyChange}
           />
         ))}
       </div>

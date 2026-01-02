@@ -17,14 +17,14 @@ function FontSizeDropdown({
     })
 
     return (
-        <div ref={ref} className="relative min-w-16 text-sm">
+        <div ref={ref} className="relative h-fit w-20 lg:min-w-16 text-sm">
             {/* Button */}
             <button
                 type="button"
                 onClick={() => setOpen(prev => !prev)}
                 className="w-full px-3 py-2 border space-x-1 border-admin-violet-border rounded-md bg-admin-violet/5  flex items-center justify-between"
             >
-                <img src="/image/text-icon.svg" alt="" className="size-6 object-contain " />
+                <img src="/image/text-icon.svg" alt="" className="xl:size-5 size-5 object-contain " />
                 <span className='mr-2'>
                     {value ? value?.toUpperCase() : 'Select size'}
                 </span>
@@ -49,7 +49,8 @@ function FontSizeDropdown({
                     <div
                         key={size}
                         onClick={() => {
-                            onChange?.(size)
+                              if (value !== size){onChange?.(size)}
+                          
                             setOpen(false)
                         }}
                         className="px-3 py-2 cursor-pointer hover:bg-[#F2F0FF]"

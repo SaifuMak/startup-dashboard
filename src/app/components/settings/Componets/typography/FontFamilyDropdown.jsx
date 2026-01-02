@@ -25,7 +25,7 @@ function FontFamilyDropdown({
 
 
     return (
-        <div ref={ref} className="relative w-42 text-sm">
+        <div ref={ref} className="relative w-full lg:w-36 h-fit xl:w-48 text-sm  ">
             {/* Button */}
             <button
                 type="button"
@@ -72,7 +72,7 @@ function FontFamilyDropdown({
                     <div
                         key={font}
                         onClick={() => {
-                            onChange?.(font)
+                            if (value !== font) { onChange?.(font) }
                             setOpen(false)
                             setQuery('')
                         }}

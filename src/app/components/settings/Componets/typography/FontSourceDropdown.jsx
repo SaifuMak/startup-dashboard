@@ -7,20 +7,21 @@ import DropDownIcon from './DropDownIcon'
 function FontSourceDropdown({
   value,
   options = [],
+  displayFontFamily,
   onChange
 }) {
   const [open, setOpen] = useState(false)
   const ref = useClickOutside(() => setOpen(false))
 
   return (
-    <div ref={ref} className="relative w-40 mr-3 text-sm">
+    <div ref={ref} className="relative w-full lg:w-36 h-fit xl:w-48 mr-3 text-sm">
       {/* Button */}
       <button
         type="button"
         onClick={() => setOpen(prev => !prev)}
         className="w-full px-3 py-2 border border-admin-violet-border rounded-md bg-white flex items-center justify-between capitalize"
       >
-        <span>{value}</span>
+        <p>{value} <span className="">{displayFontFamily ?  `(${displayFontFamily})` : ''}</span></p>
         <DropDownIcon open={open} />
 
       </button>
@@ -43,7 +44,7 @@ function FontSourceDropdown({
             <div
               key={option}
               onClick={() => {
-                onChange?.(option)
+                if(value !== option){onChange?.(option)}
                 setOpen(false)
               }}
               className="px-3 py-2 cursor-pointer hover:bg-[#F2F0FF] capitalize"

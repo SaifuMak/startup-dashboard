@@ -18,7 +18,7 @@ function FontWeightDropdown({
     })
 
     return (
-        <div ref={ref} className="relative w-40 text-sm">
+        <div ref={ref} className="relative lg:w-36 h-fit xl:w-48 text-sm">
             {/* Button */}
             <button
                 type="button"
@@ -49,7 +49,7 @@ function FontWeightDropdown({
                     <div
                         key={weight}
                         onClick={() => {
-                            onChange?.(weight)
+                             if (value !== weight){ onChange?.(weight)}
                             setOpen(false)
                         }}
                         className={`px-3 py-2 cursor-pointer hover:bg-[#F2F0FF] ${FONT_WEIGHT_MAP[weight]}`}

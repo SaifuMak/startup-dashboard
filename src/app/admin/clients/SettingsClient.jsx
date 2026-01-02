@@ -46,7 +46,7 @@ export default function SettingsClient({ websiteUrl }) {
             <div className=" w-full  min-h-screen flex flex-col   bg-admin-light-background ">
                 <NavBar />
 
-                <div className=" lg:w-11/12 2xl:w-10/12 p-5  md:p-8 xl:p-10 2xl:p-16">
+                <div className=" xl:w-11/12 2xl:w-10/12 p-5  md:p-8 xl:p-10 2xl:p-16">
 
                     <div className="flex items-center justify-between mb-8 ">
 
