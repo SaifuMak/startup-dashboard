@@ -37,12 +37,35 @@ export const WEBSITE_TYPOGRAPHY_FIELDS = [
   }
 ];
 
-
 export const AVAILABLE_FONTS = [
-  "Poppins",
   "Inter",
-  "Montserrat",
   "Roboto",
   "Open Sans",
-  "Lato"
-];
+  "Poppins",
+  "Montserrat",
+  "Lato",
+  "Nunito",
+  "Raleway",
+  "Source Sans Pro",
+  "Work Sans",
+  "Ubuntu",
+  "Rubik",
+  "Muli",
+  "Hind",
+  "Fira Sans",
+  "Oswald",
+  "Playfair Display",
+  "Merriweather",
+  "Lora",
+  "Libre Baskerville",
+  "PT Serif",
+  "Bebas Neue",
+  "Quicksand",
+  "Cabin",
+  "Josefin Sans",
+  "Cormorant Garamond",
+  "Anton",
+  "Comfortaa",
+  "Heebo",
+  "Manrope",
+]
