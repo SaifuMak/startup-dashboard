@@ -24,6 +24,13 @@ export const WEBSITE_TYPOGRAPHY_FIELDS = [
     type: "font_source"
   },
   {
+    key: "sub_headings",
+    label: "Subheadings",
+    description: "For section subheadings",
+    type: "font_source"
+  },
+
+  {
     key: "body_text",
     label: "Body Text",
     description: "For all section content",
