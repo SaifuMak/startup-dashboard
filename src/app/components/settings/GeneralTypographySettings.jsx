@@ -42,7 +42,6 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
   }, [localTypographySettings])
 
 
-
   const handleSaveTypography = async () => {
     if (!localTypographySettings || !isTypographyChanged) return
 
@@ -66,8 +65,6 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
       setIsLoading(false)
     }
   }
-
-  console.log(localTypographySettings, 'this is the typographies')
 
   if (!localTypographySettings) return null;
 
