@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
@@ -10,6 +10,7 @@ import GeneralTypographySettings from '../GeneralTypographySettings';
 
 import { WEBSITE_COLOR_THEME_FIELDS } from '@/app/data/ColorThemes';
 import { WEBSITE_TYPOGRAPHY_FIELDS } from '@/app/data/Typography';
+import { getTemplatesByCategory } from '@/app/actions/templates';
 
 // this deals with general website settings
 function WebsiteSettings({ data, updateLocalData }) {
@@ -29,8 +30,24 @@ function WebsiteSettings({ data, updateLocalData }) {
     const [isColorChanged, setIsColorChanged] = useState(false)
     const [isTypographyChanged, setIsTypographyChanged] = useState(false)
 
+    const [templates, setTemplates] = useState([]);
 
     const [isLoading, setIsLoading] = useState(false)
+
+     useEffect(() => {
+        setIsLoading(true);
+
+        const fetchTemplates = async () => {
+            const { success, data: templatesData } = await getTemplatesByCategory(data.site_type);
+            if (success) {
+                setTemplates(templatesData);
+            }
+            setIsLoading(false);
+        };
+
+        fetchTemplates();
+
+    }, [data.site_type])
 
     const renderTabContent = () => {
 
@@ -38,7 +55,11 @@ function WebsiteSettings({ data, updateLocalData }) {
             case 'Main':
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
-                return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
+                return <GeneralMainDesign data={data}
+                 updateLocalData={updateLocalData}
+                  setIsLoading={setIsLoading}
+                   isLoading={isLoading}
+                   templates={templates} />;
             case 'Colors':
                 return <GeneralColorSettings data={data}
                     updateLocalData={updateLocalData}

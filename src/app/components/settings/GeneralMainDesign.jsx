@@ -2,13 +2,13 @@ import { getTemplatesByCategory, updateSiteTheme } from "@/app/actions/templates
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { IoEyeOutline } from "react-icons/io5";
+import LoaderIcon from "../general-components/LoaderIcon";
 
 // this deals with design settings common for all site types(design tab)
-export default function GeneralMainDesign({ data, updateLocalData, setIsLoading, isLoading }) {
+export default function GeneralMainDesign({ data, updateLocalData, setIsLoading, isLoading, templates }) {
 
     const settingsData = data?.settings || {};
 
-    const [templates, setTemplates] = useState([]);
     const [selectedLayoutTheme, setSelectedLayoutTheme] = useState('light')
     const [selectedTemplateKeyForSwitching, setselectedTemplateKeyForSwitching] = useState(null)
     const [templateSwitchingConfirmatiom, setTemplateSwitchingConfirmatiom] = useState(false)
@@ -55,23 +55,6 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
     };
 
 
-    useEffect(() => {
-        setIsLoading(true);
-
-        const fetchTemplates = async () => {
-            const { success, data: templatesData } = await getTemplatesByCategory(data.site_type);
-            if (success) {
-                console.log('Templates data:', templatesData);
-                setTemplates(templatesData);
-            }
-            setIsLoading(false);
-        };
-
-        fetchTemplates();
-
-    }, [])
-
-
     return (
         <div className=" w-full max-md:text-sm">
 
@@ -95,7 +78,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
 
             {/* templates section */}
             <div className="grid lg:grid-cols-2 2xl:grid-cols-3 mt-10 w-full gap-10">
-                {templates.map((template, index) => {
+                {templates?.map((template, index) => {
 
                     const isHoveredOrClicked = ClickedOrHoveredTemplateKey === template.key;
 
@@ -103,7 +86,7 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                         <div
                             onMouseEnter={() => setClickedOrHoveredTemplateKey(template.key)}
                             onMouseLeave={() => setClickedOrHoveredTemplateKey(null)}
-                            onClick={() =>  isHoveredOrClicked ? setClickedOrHoveredTemplateKey(null) : setClickedOrHoveredTemplateKey(template.key)}
+                            onClick={() => isHoveredOrClicked ? setClickedOrHoveredTemplateKey(null) : setClickedOrHoveredTemplateKey(template.key)}
 
 
                             className="" key={index}>
@@ -175,9 +158,10 @@ export default function GeneralMainDesign({ data, updateLocalData, setIsLoading,
                     <div className=" flex justify-end space-x-4">
                         <button
                             onClick={confirmTemplateChange}
-                            className=" px-4 py-1.5 cursor-pointer text-white bg-[#099613] rounded-md"
-                        >
-                            Confirm
+                            disabled={isLoading}
+                            className=" w-20 flex-center cursor-pointer text-white bg-[#099613] rounded-md"
+                        >{isLoading ? <LoaderIcon className='text-xl text-white animate-spin' /> : " Confirm"}
+
                         </button>
                         <button
                             onClick={() => {

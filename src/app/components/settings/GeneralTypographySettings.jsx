@@ -67,13 +67,9 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
     }
   }
 
-
-
+  console.log(localTypographySettings, 'this is the typographies')
 
   if (!localTypographySettings) return null;
-
-
-
 
   return (
     <div className="w-full">
@@ -99,7 +95,7 @@ function GeneralTypographySettings({ data, updateLocalData, setIsLoading, isLoad
           />
         ))}
       </div>
-       <UnsavedChangesBar
+      <UnsavedChangesBar
         show={isTypographyChanged}
         top
         onSave={handleSaveTypography}

@@ -6,8 +6,7 @@ export default async function Settings({ params }) {
 
     const { websiteId } = await params;
 
-   
-
+    // this is website url
     return (
         <SettingsClient websiteUrl={websiteId} />
     )

@@ -3,6 +3,7 @@ import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi"
 
 function FontSizeInput({
     value,
+    type,
     min = 10,
     max = 200,
     step = 1,

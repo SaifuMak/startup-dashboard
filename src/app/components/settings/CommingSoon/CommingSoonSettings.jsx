@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import GeneralMainSettings from '../GeneralMainSettings';
 import LoaderIcon from '../../general-components/LoaderIcon';
 import GeneralMainDesign from '../GeneralMainDesign';
@@ -8,7 +8,8 @@ import GeneralColorSettings from '../GeneralColorSettings';
 import GeneralTypographySettings from '../GeneralTypographySettings';
 import SettingsTabs from '../Componets/SettingsTabs';
 import { COMMING_SOON_COLOR_THEME_FIELDS } from '@/app/data/ColorThemes';
-import { WEBSITE_TYPOGRAPHY_FIELDS } from '@/app/data/Typography';
+import { COMING_SOON_WEBSITE_TYPOGRAPHY_FIELDS } from '@/app/data/Typography';
+import { getTemplatesByCategory } from '@/app/actions/templates';
 
 // this deals with comming soon site settings
 function CommingSoonSettings({ data, updateLocalData }) {
@@ -24,12 +25,28 @@ function CommingSoonSettings({ data, updateLocalData }) {
     ]
 
     const [selectedTab, setSelectedTab] = useState('Main');
+    const [templates, setTemplates] = useState([]);
 
     const [isLoading, setIsLoading] = useState(false)
 
     // keeping the changed actions in parent 
     const [isColorChanged, setIsColorChanged] = useState(false)
     const [isTypographyChanged, setIsTypographyChanged] = useState(false)
+
+    useEffect(() => {
+        setIsLoading(true);
+
+        const fetchTemplates = async () => {
+            const { success, data: templatesData } = await getTemplatesByCategory(data.site_type);
+            if (success) {
+                setTemplates(templatesData);
+            }
+            setIsLoading(false);
+        };
+
+        fetchTemplates();
+
+    }, [data.site_type])
 
 
 
@@ -40,7 +57,11 @@ function CommingSoonSettings({ data, updateLocalData }) {
                 return <GeneralMainSettings data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} />;
             case 'Design':
                 //  design settings tab this is common for all site types
-                return <GeneralMainDesign data={data} updateLocalData={updateLocalData} setIsLoading={setIsLoading} isLoading={isLoading} />;
+                return <GeneralMainDesign data={data}
+                    updateLocalData={updateLocalData}
+                    setIsLoading={setIsLoading}
+                    isLoading={isLoading}
+                    templates={templates} />;
             case 'Colors':
                 return <GeneralColorSettings data={data}
                     updateLocalData={updateLocalData}
@@ -56,7 +77,7 @@ function CommingSoonSettings({ data, updateLocalData }) {
                     updateLocalData={updateLocalData}
                     setIsLoading={setIsLoading}
                     isLoading={isLoading}
-                    typographyFields={WEBSITE_TYPOGRAPHY_FIELDS}
+                    typographyFields={COMING_SOON_WEBSITE_TYPOGRAPHY_FIELDS}
                     isTypographyChanged={isTypographyChanged}
                     setIsTypographyChanged={setIsTypographyChanged}
                 />;
